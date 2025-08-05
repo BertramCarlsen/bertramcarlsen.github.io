@@ -56,7 +56,7 @@ VirtualBox is fairly easy to install, but if needed [here](https://www.youtube.c
 
 ## Downloading and Installing Windows 10
 
-For the company machine we're gonna be using Windows 10. Head over to (Microsofts website)[https://www.microsoft.com/en-gb/software-download/windows10] to download the "Windows 10 Installation Media":
+For the company machine we're gonna be using Windows 10. Head over to (Microsofts website)[https://www.microsoft.com/en-gb/software-download/windows10] to download the **"Windows 10 Installation Media"**:
 
 ![Windows 10 Installation Media](/img/Windows10.png)
 
@@ -66,7 +66,7 @@ Accept the License Agreements. Then we'll be presented with this screen:
 
 ![Create Installation Media](/img/CreateInstallationMedia.png)
 
-Check "Create Installation Media" and hit next.
+Check **"Create Installation Media"** and hit next.
 
 You can customize the Windows 10 settings if you want, but the recommended options are fine. Hit next.
 
@@ -78,15 +78,15 @@ Once the Installation Media is finished downloading, we can move on to the next 
 
 ### VirtualBox Windows 10 Setup
 
-Open VirtualBox and click "New". 
+Open VirtualBox and click **"New"**. 
 
 We are now presented with a screen where we need to choose:
  - A name for our virtual machine
  - The location of where to store the virtual machines data
  - The location of the ISO image 
- - The version of windows we are installing
+ - The version of the operating system we are installing
 
-Make sure to check the "Skip Unattended Install" box.
+Make sure to check the **"Skip Unattended Install"** box.
 
 ![Virtual Machine Name and Operating System Settings](/img/VirtualMachineName.png)
 
@@ -96,7 +96,7 @@ Now go to the "Hardware" tab. We should use **4096 MB** of Base Memory and **1**
 
 Leave the Hard Disk settings as is, with 50 GB of storage and using **VDI**. Click finish.
 
-![Hard Disk Settings](/img/Harddisk.png)
+![Hard Disk Settings](/img/HardDisk.png)
 
 We can now boot up our brand new Company Windows 10 Machine by clicking **"Start"**.
 Choose the language and keyboard settings you want on the machine, and then click "**Next**" and then **"Install Now"**:
@@ -139,11 +139,68 @@ Then click the 64-bit english ISO download and save it on your pc:
 
 ![Windows Server ISO Download](/img/WindowsServerDownload.png)
 
-> **Note**: This evaluation edition expires in 180 days.
+> **Note**: This evaluation edition of **Windows Server** expires in 180 days.
 {: .prompt-warning }
 
 Once the download is complete, move on to the next step.
 
 ### VirtualBox Windows Server Setup
 
-Open up VirtualBox and click **"New"**
+Open up VirtualBox and click **"New"**. 
+
+We are now presented with a screen where we need to choose:
+ - A name for our virtual machine
+ - The location of where to store the virtual machines data
+ - The location of the ISO image 
+ - The version of the operating system we are installing
+
+Make sure to check the **"Skip Unattended Install"** box.
+
+![Virtual Machine Name and Operating System Settings](/img/ADDC01VirtualMachineSettings.png)
+
+Now go to the "Hardware" tab. We should use **4096 MB** of Base Memory and **1** Processor:
+
+![Memory and Processor Hardware Settings](/img/Hardware.png)
+
+Leave the Hard Disk settings as is, with 50 GB of storage and using **VDI**. Click finish.
+
+![Hard Disk Settings](/img/HardDisk2.png)
+
+Now we can click **"Start"** on the **ADDC01**.
+Choose the language and keyboard settings you want on the machine, and then click "**Next**" and then **"Install Now"**:
+
+![Windows Setup Language Settings](/img/WindowsSetupLanguage2.png)
+
+On the **"Activate Windows"** screen, click **"I don't have a product key"**. Then choose **"Windows Server 2022 Standard Evaluation (Desktop Experience)"**.
+Accept the License Agreements and click **"Next"**. Choose the **"Custom: Install Microsoft Server Operating System only (Advanced)"** option.
+
+![Windows Server Version](/img/WindowsServerVersion2.png)
+
+Then click the **"Drive 0 Unallocated Space"** and click **"Next"**. 
+
+![Choose "Drive 0 Unallocated Space"](/img/Drive0UnallocatedSpace2.png)
+
+Windows Server will now be begin to be installed on the virtual machine.
+
+When the installation is done we'll be presented with this screen:
+
+![Choose Password Windows Server 2022](/img/ChoosePasswordWindowsServer.png)
+
+
+## Downloading and Installing the Ubuntu Server
+
+Nagivate over to the [Ubuntu website](https://ubuntu.com/download/server).
+
+![Ubuntu Website](/img/UbuntuWebsite.png)
+
+### Ubuntu Server VirtualBox Setup
+
+Open up VirtualBox and click **"New"**. 
+
+We are now presented with a screen where we need to choose:
+ - A name for our virtual machine
+ - The location of where to store the virtual machines data
+ - The location of the ISO image 
+ - The version of the operating system we are installing
+
+![Virtual Machine Name and Operating System Settings](/img/UbuntuVirtualMachineSettings.png)
