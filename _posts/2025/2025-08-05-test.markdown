@@ -1,9 +1,8 @@
-
 ---
 title: "TEST"
 date: 2025-08-05 12:00:00 + 0100
 tags: [homelab, windows, splunk]
-categories: [Projects]
+categories: [projects]
 ---
 
 # Header 1
