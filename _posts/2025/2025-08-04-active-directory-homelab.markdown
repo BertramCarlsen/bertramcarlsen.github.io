@@ -32,7 +32,7 @@ Active Directory is a database that contains **objects** such as:
 These **objects** will contain **attributes** that hold information about that **object**.
 An example would be 
 
-In order to use Active Directory a server must install a service called **Active Directory Domain Service** or **ADDS** for short. Then the server must be promoted to a **Domain Controller** or **DC** for short. This allows the server to perform **authentication** using a protocol called [Kerberos]() and **authorization** for our domain.
+In order to use Active Directory a server must install a service called **Active Directory Domain Service** or **ADDS** for short. Then the server must be promoted to a **Domain Controller** or **DC** for short. This allows the server to perform **authentication** using a protocol called [Kerberos](https://en.wikipedia.org/wiki/Kerberos_(protocol)) and **authorization** for our domain.
 
 ## Getting Started
 
