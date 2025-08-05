@@ -16,7 +16,7 @@ Before jumping into it straight away, I decided to make a diagram with the diffe
  - Company machine running [Windows 10](https://www.microsoft.com/en-gb/software-download/windows10)
  - Attacker machine running [Kali Linux](https://www.kali.org/
  - Active Directory running on [Windows Server 2022](https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2022)
- - Splunk SIEM running on [Ubuntu Server]()
+ - Splunk SIEM running on [Ubuntu Server](https://ubuntu.com/download/server)
 
 ![Home Lab](/img/Home_lab.png){: width="700" height="400" }
 
@@ -29,7 +29,8 @@ Active Directory is a database that contains **objects** such as:
  - Security Policies
  - And much more
 
-
+These **objects** will contain **attributes** that hold information about that **object**.
+An example would be 
 
 In order to use Active Directory a server must install a service called **Active Directory Domain Service** or **ADDS** for short. Then the server must be promoted to a **Domain Controller** or **DC** for short. This allows the server to perform **authentication** using a protocol called [Kerberos]() and **authorization** for our domain.
 
