@@ -4,7 +4,6 @@ title: TEST
 date: 2025-08-05 HH:MM:SS +/-TTTT
 categories: [HomeLab]
 tags: [windows, active directory, splunk, homelab]     # TAG names should always be lowercase
-media_subpath: /img/
 ---
 
 # Header 1
@@ -13,7 +12,7 @@ media_subpath: /img/
 
 `Code`
 
-![](1.png){: width="700" height="400" }
+![](/img/1.png){: width="700" height="400" }
 
 ```python
 if True:
