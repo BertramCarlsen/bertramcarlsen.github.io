@@ -1,0 +1,21 @@
+
+---
+title: TEST
+date: 2025-08-05 HH:MM:SS +/-TTTT
+categories: [HomeLab]
+tags: [windows, active directory, splunk, homelab]     # TAG names should always be lowercase
+media_subpath: /img/
+---
+
+# Header 1
+## Header 2 
+### Header 3
+
+`Code`
+
+![](/img/1.png){: width="700" height="400" }
+
+```python
+if True:
+  yap = 1
+```
