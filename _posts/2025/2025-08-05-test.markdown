@@ -1,9 +1,9 @@
 
 ---
-layout: post
 title: "TEST"
 date: 2025-08-05 12:00:00 + 0100
-tags: homelab windows splunk     # TAG names should always be lowercase
+tags: [homelab, windows, splunk]
+categories: [Projects]
 ---
 
 # Header 1
