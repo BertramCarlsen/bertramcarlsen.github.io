@@ -1,7 +1,7 @@
 
 ---
 title: TEST
-date: 2025-08-05 HH:MM:SS +/-TTTT
+date: 2025-08-05 
 categories: [HomeLab]
 tags: [windows, active directory, splunk, homelab]     # TAG names should always be lowercase
 ---
