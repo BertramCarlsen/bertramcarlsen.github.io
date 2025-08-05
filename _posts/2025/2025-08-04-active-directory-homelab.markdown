@@ -118,6 +118,32 @@ Kali Linux is an open-source Bebian-based Linux distribution made for Penetratio
 
 Before installing Kali Linux we need to install [7-Zip](https://www.7-zip.org/), because Kali Linux comes in a `.7z` archive.
 
-To download Kali Linux head over to the [Kali website](https://www.kali.org/get-kali/#kali-platforms) and click **"Virtual Machines"**. Then click the download button on **"VirtualBox"**:
+To download Kali Linux head over to the [Kali website](https://www.kali.org/get-kali/#kali-platforms) and click **"Virtual Machines"**. Then click the download button on **"VirtualBox"** and save it to your pc:
 
 ![Kali Linux VirtualBox Download](/img/KaliVirtualBox.png)
+
+Once the download is finished, unzip the archive with 7-zip by right clicking the archive, and then clicking **"Show more options"**. 
+Then hover over 7-Zip and click **"Extract To kali-linux-2025.2-virtualbox-amd64"** (The file name might be different for you).
+
+Once the extraction is complete, just double click the `.vbox` file in the new folder. This will automatically import it into VirtualBox.
+The default credentials for Kali Linux is:
+ - **Username**:
+    - `kali`
+ - **Password**:
+     - `kali`
+
+## Downloading and Installing the Windows Server
+
+Nagivate over to the [Microsoft website](https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2022). Under **"Get started for free"** click **"Download the ISO"** and then enter some information.
+Then click the 64-bit english ISO download and save it on your pc:
+
+![Windows Server ISO Download](/img/WindowsServerDownload.png)
+
+> **Note**: This evaluation edition expires in 180 days.
+{: .prompt-warning }
+
+Once the download is complete, move on to the next step.
+
+### VirtualBox Windows Server Setup
+
+Open up VirtualBox and click **"New"**
