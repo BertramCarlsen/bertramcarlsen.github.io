@@ -1,6 +1,6 @@
 ---
-title: "TEST"
-date: 2025-08-05 12:00:00 + 0100
+title: "test"
+date: 2025-08-04 12:00:00 + 0100
 tags: [homelab, windows, splunk]
 categories: [projects]
 ---
