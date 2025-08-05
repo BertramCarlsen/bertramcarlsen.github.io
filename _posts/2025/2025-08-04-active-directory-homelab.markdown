@@ -48,12 +48,13 @@ Some prerequisites for your host system is:
  - Windows OS
  - 250 GB of storage (not all will be used, but it's recommended to have some breathing room)
  - 16 GB of RAM
+ - 7-Zip
 
 ## VirtualBox
 To host this home lab, we'll use [VirtualBox](https://www.virtualbox.org/) to simulate a real-ish corporate environment. VirtualBox is a virtualization software that can be downloaded from [here](https://www.virtualbox.org/wiki/Downloads).
 VirtualBox is fairly easy to install, but if needed [here](https://www.youtube.com/watch?v=homRENM8KVY) is a youtube tutorial.
 
-## Installing Windows 10
+## Downloading and Installing Windows 10
 
 For the company machine we're gonna be using Windows 10. Head over to (Microsofts website)[https://www.microsoft.com/en-gb/software-download/windows10] to download the "Windows 10 Installation Media":
 
@@ -97,8 +98,8 @@ Leave the Hard Disk settings as is, with 50 GB of storage and using **VDI**. Cli
 
 ![Hard Disk Settings](/img/Harddisk.png)
 
-We can now boot up our brand new Company Windows 10 Machine by clicking "**Start**".
-Choose the language and keyboard settings you want on the machine, and then click "**Next**" and then "**Install Now**".:
+We can now boot up our brand new Company Windows 10 Machine by clicking **"Start"**.
+Choose the language and keyboard settings you want on the machine, and then click "**Next**" and then **"Install Now"**:
 
 ![Windows Setup Language Settings](/img/WindowsSetupLanguage.png)
 
@@ -109,4 +110,14 @@ Then click the **"Drive 0 Unallocated Space"** and click **"Next"**.
 
 ![Choose "Drive 0 Unallocated Space"](/img/Drive0UnallocatedSpace.png)
 
-Windows will now be begin to be installed on the virtual machine. 
+Windows will now be begin to be installed on the virtual machine. You can leave this on in the background and move on to the next step.
+
+## Downloading and Installing Kali Linux
+
+Kali Linux is an open-source Bebian-based Linux distribution made for Penetration Testing, Computer Forensics and Reverse Engineering. It comes with a lot of ready to go applications for attacking the company machine. 
+
+Before installing Kali Linux we need to install [7-Zip](https://www.7-zip.org/), because Kali Linux comes in a `.7z` archive.
+
+To download Kali Linux head over to the [Kali website](https://www.kali.org/get-kali/#kali-platforms) and click **"Virtual Machines"**. Then click the download button on **"VirtualBox"**:
+
+![Kali Linux VirtualBox Download](/img/KaliVirtualBox.png)
