@@ -32,11 +32,12 @@ Active Directory is a database that contains **objects** such as:
 These **objects** will contain **attributes** that hold information about that **object**.
 An example would be:
 
- - **User Object**: `Bob`
+ - **User Object**: 
+    - `Bob`
  - **Attributes**: 
-  - First Name = `Bob`
-  - Last Name = `Smith`
-  - Age = `31`
+    - First Name = `Bob`
+    - Last Name = `Smith`
+    - Age = `31`
 
 
 In order to use Active Directory a server must install a service called **Active Directory Domain Service** or **ADDS** for short. Then the server must be promoted to a **Domain Controller** or **DC** for short. This allows the server to perform **authentication** using a protocol called [Kerberos](https://en.wikipedia.org/wiki/Kerberos_(protocol)) and **authorization** for our domain.
@@ -49,7 +50,7 @@ Some prerequisites for your host system is:
  - 16 GB of RAM
 
 ## VirtualBox
-To host this home lab, we'll use [VirtualBox](https://www.virtualbox.org/) to simulate a real-ish corporate enviromnent. VirtualBox is a virtualization software that can be downloaded from [here](https://www.virtualbox.org/wiki/Downloads).
+To host this home lab, we'll use [VirtualBox](https://www.virtualbox.org/) to simulate a real-ish corporate environment. VirtualBox is a virtualization software that can be downloaded from [here](https://www.virtualbox.org/wiki/Downloads).
 VirtualBox is fairly easy to install, but if needed [here](https://www.youtube.com/watch?v=homRENM8KVY) is a youtube tutorial.
 
 ## Installing Windows 10
@@ -76,4 +77,36 @@ Once the Installation Media is finished downloading, we can move on to the next 
 
 ### VirtualBox Windows 10 Setup
 
+Open VirtualBox and click "New". 
 
+We are now presented with a screen where we need to choose:
+ - A name for our virtual machine
+ - The location of where to store the virtual machines data
+ - The location of the ISO image 
+ - The version of windows we are installing
+
+Make sure to check the "Skip Unattended Install" box.
+
+![Virtual Machine Name and Operating System Settings](/img/VirtualMachineName.png)
+
+Now go to the "Hardware" tab. We should use **4096 MB** of Base Memory and **1** Processor:
+
+![Memory and Processor Hardware Settings](/img/Hardware.png)
+
+Leave the Hard Disk settings as is, with 50 GB of storage and using **VDI**. Click finish.
+
+![Hard Disk Settings](/img/Harddisk.png)
+
+We can now boot up our brand new Company Windows 10 Machine by clicking "**Start**".
+Choose the language and keyboard settings you want on the machine, and then click "**Next**" and then "**Install Now**".:
+
+![Windows Setup Language Settings](/img/WindowsSetupLanguage.png)
+
+On the **"Activate Windows"** screen, click **"I don't have a product key"**. Then choose **"Windows 10 Pro"**.
+Accept the License Agreements and click **"Next"**. Choose the **"Custom: Install Windows Only (Advanced)"** option.
+
+Then click the **"Drive 0 Unallocated Space"** and click **"Next"**. 
+
+![Choose "Drive 0 Unallocated Space"](/img/Drive0UnallocatedSpace.png)
+
+Windows will now be begin to be installed on the virtual machine. 
