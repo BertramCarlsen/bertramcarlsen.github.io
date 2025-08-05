@@ -20,6 +20,19 @@ Before jumping into it straight away, I decided to make a diagram with the diffe
 
 ![Home Lab](/img/Home_lab.png){: width="700" height="400" }
 
+## What is Active Directory? (High Level Overview)
+
+Active Directory is a database that contains **objects** such as:
+ - Users
+ - Groups
+ - Computers
+ - Security Policies
+ - And much more
+
+
+
+In order to use Active Directory a server must install a service called **Active Directory Domain Service** or **ADDS** for short. Then the server must be promoted to a **Domain Controller** or **DC** for short. This allows the server to perform **authentication** using a protocol called [Kerberos]() and **authorization** for our domain.
+
 ## Getting Started
 
 Some prerequisites for your host system is:
