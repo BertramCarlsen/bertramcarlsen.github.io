@@ -178,15 +178,13 @@ Accept the License Agreements and click **"Next"**. Choose the **"Custom: Instal
 
 Then click the **"Drive 0 Unallocated Space"** and click **"Next"**. 
 
-![Choose "Drive 0 Unallocated Space"](/img/Drive0UnallocatedSpace2.png)
+![Choose "Drive 0 Unallocated Space"](/img/Drive0UnallocatedSpace.png)
 
 Windows Server will now be begin to be installed on the virtual machine.
 
-When the installation is done we'll be presented with this screen:
+When the installation is done we'll need to choose a password for the Windows Server. After typing your password, click finish (I chose `VeryStrongPassword98`):
 
 ![Choose Password Windows Server 2022](/img/ChoosePasswordWindowsServer.png)
-
-
 ## Downloading and Installing the Ubuntu Server
 
 Nagivate over to the [Ubuntu website](https://ubuntu.com/download/server).
