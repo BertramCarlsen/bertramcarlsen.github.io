@@ -1,7 +1,7 @@
 ---
 title: Active Directory Home Lab Part 1
 date: 2025-08-04 12:00:00 + 0100
-tags: [homelab, active directory, windows, splunk]
+tags: [homelab, active directory, windows, splunk, sysmon]
 categories: [projects]
 ---
 
@@ -162,10 +162,11 @@ Double click **Internet Protocol Version 4 (TCP/IPv4)**:
 ![Ethernet Properties](/img/EthernetProperties.png)
 
 Change **Obtain an IP address automatically** to **Use the following IP address**. 
-Now we can set the static IP we picked in the diagram (`192.168.10.100`). 
-The network is a `/24`, so the **Subnet mask** should be `255.255.255.0`.
-The **Default gateway** is `192.168.10.1`.
-The **Preferred DNS Server** is `8.8.8.8` for now, but this will eventually point to our AD server. 
+ - Set the static IP we picked in the diagram (`192.168.10.100`). 
+ - The network is a `/24`, so the **Subnet mask** should be `255.255.255.0`.
+ - The **Default gateway** is `192.168.10.1`.
+ - The **Preferred DNS Server** is `8.8.8.8` for now, but this will eventually point to our AD server. 
+
 Click **Ok** to apply the changes
 
 ![IPv4 Properties](/img/IPv4Properties.png)
@@ -327,7 +328,7 @@ We'll see an error message, but **don't worry**. Just click enter and it'll work
 Once it's done booting up we can use the username and password we made earlier.
 When you are logged in, we can update and upgrade our repositories using `apt-get`:
 
-```
+```bash
 sudo apt-get update && sudo apt-get upgrade -y 
 ```
 
@@ -340,7 +341,7 @@ Use the command:
 ```bash
 sudo nano /etc/netplan/50-cloud-init.yaml
 ```
-> **Note**: The `.yaml` file name could be different from mine, but there should only be 1 file in the `/etc/netplan/` directory.
+> **Note**: Your `.yaml` file name could be different from mine, but there should only be 1 file in the `/etc/netplan/` directory.
 {: .prompt-warning }
 
 The file should look something like this:
