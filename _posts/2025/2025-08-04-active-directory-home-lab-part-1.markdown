@@ -1,13 +1,11 @@
 ---
-title: Active Directory Home Lab
+title: Active Directory Home Lab Part 1
 date: 2025-08-04 12:00:00 + 0100
 tags: [homelab, active directory, windows, splunk]
 categories: [projects]
 ---
 
-# Active Directory with Splunk
-
-I wanted to learn some more about [Active Directory](https://en.wikipedia.org/wiki/Active_Directory), so I figured I would set up a home lab.
+I wanted to get some hands-on experience with [Active Directory](https://en.wikipedia.org/wiki/Active_Directory), so I figured I would set up a home lab.
 
 This can serve as a tutorial for anyone wanting to build a home lab, where you can simulate attacks and a SIEM solution for logs.
 
@@ -20,7 +18,7 @@ Before jumping into it straight away, I decided to make a diagram with the diffe
 
 ![Home Lab](/img/Home_lab.png){: width="700" height="400" }
 
-## What is Active Directory? (High Level Overview)
+## **What is Active Directory? (High Level Overview)**
 
 Active Directory is a database that contains **objects** such as:
  - Users
@@ -42,7 +40,7 @@ An example would be:
 
 In order to use Active Directory a server must install a service called **Active Directory Domain Service** or **ADDS** for short. Then the server must be promoted to a **Domain Controller** or **DC** for short. This allows the server to perform **authentication** using a protocol called [Kerberos](https://en.wikipedia.org/wiki/Kerberos_(protocol)) and **authorization** for our domain.
 
-## Prerequisites
+## **Prerequisites**
 
 Some prerequisites for your host system is:
  - Windows OS
@@ -50,11 +48,13 @@ Some prerequisites for your host system is:
  - 16 GB of RAM
  - 7-Zip
 
-## VirtualBox
+## **VirtualBox**
 To host this home lab, we'll use [VirtualBox](https://www.virtualbox.org/) to simulate a real-ish corporate environment. VirtualBox is a virtualization software that can be downloaded from [here](https://www.virtualbox.org/wiki/Downloads).
 VirtualBox is fairly easy to install, but if needed [here](https://www.youtube.com/watch?v=homRENM8KVY) is a youtube tutorial.
 
-## Downloading and Installing Windows 10
+
+
+## **Downloading and Installing Windows 10**
 
 For the company machine we're gonna be using Windows 10. Head over to [Microsofts website](https://www.microsoft.com/en-gb/software-download/windows10) to download the **Windows 10 Installation Media**:
 
@@ -76,7 +76,7 @@ We are presented with the option of which media to use. Check the ISO file optio
 
 Once the Installation Media is finished downloading, we can move on to the next step.
 
-### VirtualBox Windows 10 Setup
+### **VirtualBox Windows 10 Setup**
 
 Open VirtualBox and click **New**. 
 
@@ -110,9 +110,73 @@ Then click the **Drive 0 Unallocated Space** and click **Next**.
 
 ![Choose Drive 0 Unallocated Space](/img/Drive0UnallocatedSpace.png)
 
-Windows will now be begin to be installed on the virtual machine. You can leave this on in the background and move on to the next step.
+Windows will now be begin to be installed on the virtual machine. Once it's finished you pick your region and keyboard layout.
+Make sure to pick **Set Up For An Organization** and click next.
 
-## Downloading and Installing Kali Linux
+![Set Up For Organization](/img/SetUpForOrganization.png)
+
+In the bottom left corner click **Domain Join Instead**. This will skip Microsofts account requirement and allow us to create a local user on the machine.
+
+![Domain Join Instead](/img/DomainJoinInstead.png)
+
+Choose a name for the pc and click **Next**.
+
+![Choose Name](/img/ChooseName.png)
+
+Choose a password for the pc and click **Next**.
+
+![Choose Password](/img/ChoosePassword.png)
+
+Choose three security questions for the pc (I used `bob` for all three)
+
+![Choose Security Questions](/img/SecurityQuestions.png)
+
+For the next screens, we can just skip them or click the minimal amount of data being sent to Microsoft. 
+Now Windows will be installing on the machine.
+
+### **Minor Windows Configuration**
+
+Once we are in, we need to change a couple of settings.
+
+The first is the **Hostname** of the machine. To change it, search for **This PC** and click **Properties**.
+
+![This PC](/img/ThisPC.png)
+
+Click **Rename this PC** and change it to `Company-PC`, `Target-PC` or whatever you want. Click **Restart Now**. Now our **Hostname** is what we changed it to.
+
+![Rename PC](/img/RenamePC.png)
+
+The other configuration we need to make, is to statically set our IP address for this machine.
+If we open a **Command Prompt** we can type `ipconfig` and see our current IP address:
+
+![IP Config](/img/IPConfig.png)
+
+To change this right click the Network icon in the bottom right and click **Open Network & Internet Settings**.
+
+![Network Icon](/img/NetworkIcon.png)
+
+Scroll down and under **Advanced network settings** click **Change adapter options**.
+Then right click the ethernet network and click **Properties**. 
+Double click **Internet Protocol Version 4 (TCP/IPv4)**:
+
+![Ethernet Properties](/img/EthernetProperties.png)
+
+Change **Obtain an IP address automatically** to **Use the following IP address**. 
+Now we can set the static IP we picked in the diagram (`192.168.10.100`). 
+The network is a `/24`, so the **Subnet mask** should be `255.255.255.0`.
+The **Default gateway** is `192.168.10.1`.
+The **Preferred DNS Server** is `8.8.8.8`, which is Google's (You can pick another if you want). 
+Click **Ok** to apply the changes
+
+![IPv4 Properties](/img/IPv4Properties.png)
+
+If we now type `ipconfig` in a **Command Prompt**, we will see the settings we just configured:
+
+![New IP Config](/img/IPConfig2.png)
+
+This is the Windows 10 setup for now and we can move on to setting up **Kali Linux**
+
+## **Downloading and Installing Kali Linux**
 
 Kali Linux is an open-source Debian-based Linux distribution made for Penetration Testing, Computer Forensics and Reverse Engineering. It comes with a lot of ready to go applications for attacking the company machine. 
 
@@ -132,9 +196,9 @@ The default credentials for Kali Linux is:
  - **Password**:
      - `kali`
 
-## Downloading and Installing the Windows Server
+## **Downloading and Installing the Windows Server**
 
-Nagivate over to the [Microsoft website](https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2022). Under **Get started for free** click **Download the ISO** and then enter some information.
+Navigate over to the [Microsoft website](https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2022). Under **Get started for free** click **Download the ISO** and then enter some information.
 Then click the 64-bit english ISO download and save it on your pc:
 
 ![Windows Server ISO Download](/img/WindowsServerDownload.png)
@@ -144,7 +208,7 @@ Then click the 64-bit english ISO download and save it on your pc:
 
 Once the download is complete, move on to the next step.
 
-### VirtualBox Windows Server Setup
+### **VirtualBox Windows Server Setup**
 
 Open up VirtualBox and click **New**. 
 
@@ -193,13 +257,15 @@ At the top of the Windows Server window, hit **Input** -> **Keyboard** -> **Inse
 
 Once in, we'll be greeted by the **Server Manager** application. This is what we'll use to create our Active Directory environment later.
 
-## Downloading and Installing the Ubuntu Server
 
-Nagivate over to the [Ubuntu website](https://ubuntu.com/download/server).
+
+## **Downloading and Installing the Ubuntu Server**
+
+Navigate over to the [Ubuntu website](https://ubuntu.com/download/server).
 
 ![Ubuntu Website](/img/UbuntuWebsite.png)
 
-### Ubuntu Server VirtualBox Setup
+### **Ubuntu Server VirtualBox Setup**
 
 Open up VirtualBox and click **New**. 
 
@@ -264,7 +330,9 @@ sudo apt-get update && sudo apt-get upgrade -y
 
 Enter your password and it will start downloading and installing.
 
-## Network NAT Settings
+
+
+## **Network NAT Settings**
 
 Next we need to create a NAT network that our machines can use. 
 To do this, open up VirtualBox and click the three bullet points under **Tools**.
@@ -279,3 +347,9 @@ To put our machines onto the network we just created, open up VirtualBox and cli
 **Do this for all your machines.**
 
 ![Network Adapter NAT Network](/img/NetworkAdapter.png)
+
+
+
+## **What's next?**
+This was part 1 of a small series of blog posts. In the next post we'll configure Ubuntu server to add **Splunk**, create our **Active Directory** environment, configure the **Splunk Universal Forwarder** and more.
+
