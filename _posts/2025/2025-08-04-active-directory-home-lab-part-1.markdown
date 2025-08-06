@@ -165,7 +165,7 @@ Change **Obtain an IP address automatically** to **Use the following IP address*
 Now we can set the static IP we picked in the diagram (`192.168.10.100`). 
 The network is a `/24`, so the **Subnet mask** should be `255.255.255.0`.
 The **Default gateway** is `192.168.10.1`.
-The **Preferred DNS Server** is `8.8.8.8`, which is Google's (You can pick another if you want). 
+The **Preferred DNS Server** is `8.8.8.8` for now, but this will eventually point to our AD server. 
 Click **Ok** to apply the changes
 
 ![IPv4 Properties](/img/IPv4Properties.png)
@@ -257,7 +257,11 @@ At the top of the Windows Server window, hit **Input** -> **Keyboard** -> **Inse
 
 Once in, we'll be greeted by the **Server Manager** application. This is what we'll use to create our Active Directory environment later.
 
+### Minor Windows Server Configuration
 
+Similar to the Windows 10 machine, we should set a static IP for our server.
+Use `192.168.10.7` as the IP address, with the same **Subnet mask**, **Default gateway** and **Preferred DNS server** as before.
+This will be important when we configure **Active Directory** in part 2.
 
 ## **Downloading and Installing the Ubuntu Server**
 
@@ -303,11 +307,12 @@ On the **Guided storage configuration** we need to use the arrow keys to go down
 
 On the **Summary** screen we can click **Done** and then **Continue**
 
-Then we can setup our profile on the server. Click **Done**.
+Then we can setup our user profile with a username and a password.
+Click **Done**.
 
 ![Profile Configuration](/img/ProfileConfiguration.png)
 
-We don't need Ubuntu Pro, so we can skip this.
+We don't need Ubuntu Pro, so we can skip that part.
 
 It's up to you, if you want to install **OpenSSH** or not. I'll choose not to install it for now. Click **Done**.
 
@@ -330,7 +335,7 @@ sudo apt-get update && sudo apt-get upgrade -y
 
 Enter your password and it will start downloading and installing.
 
-
+In part 2, we'll set up Splunk on this server.
 
 ## **Network NAT Settings**
 
@@ -352,4 +357,5 @@ To put our machines onto the network we just created, open up VirtualBox and cli
 
 ## **What's next?**
 This was part 1 of a small series of blog posts. In the next post we'll configure Ubuntu server to add **Splunk**, create our **Active Directory** environment, configure the **Splunk Universal Forwarder** and more.
+
 
