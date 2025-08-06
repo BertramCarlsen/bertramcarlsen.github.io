@@ -4,7 +4,7 @@ date: 2025-08-04 12:00:00 + 0100
 tags: [homelab, active directory, windows, splunk, sysmon]
 categories: [projects]
 image:
-  path: /img/Home_Lab.png
+  path: /img/Home_Lab_Resized.png
   alt: Active Directory Home Lab Diagram
 ---
 
