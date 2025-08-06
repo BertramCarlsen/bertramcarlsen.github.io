@@ -3,9 +3,6 @@ title: Active Directory Home Lab Part 2
 date: 2025-08-06 12:00:00 + 0100
 tags: [homelab, active directory, windows, splunk, sysmon]
 categories: [projects]
-image:
-  path: /img/Home_Lab_Resized.png
-  alt: Active Directory Home Lab Diagram
 ---
 
 In [part 1]({% post_url 2025-08-04-active-directory-home-lab-part-1 %}) of this project, we set up all of our virtual machines and did some basic configuration. 
@@ -128,19 +125,21 @@ sudo ./splunk enable boot-start -user splunk
 
 ![Splunk Boot Start](/img/SplunkBoot.png)
 
-Test connectivity by trying to access Splunk from the `Company-PC` machine. Open a web browser and navigate to:
+We can test connectivity by trying to access Splunk from the `Company-PC` machine. Open a web browser and navigate to:
 
 ```
 http://192.168.10.10:8000
 ```
 
-You should see the Splunk login page.
+![Splunk Works](/img/SplunkWorks.png)
 
 ## **Installing Splunk Universal Forwarder**
 
-On your host machine, go back to [splunk.com](https://splunk.com) -> **Trials & Downloads** -> **Universal Forwarder** -> **Get My Free Download**. Select **64-bit Windows** and download the MSI file.
+On the `Company-PC`, go to [splunk.com](https://splunk.com) -> **Trials & Downloads** -> **Universal Forwarder** -> **Get My Free Download**. Select **64-bit Windows** and download the MSI file.
 
-On your `Company-PC`, run the installer:
+![Universal Forwader Download](/img/UniversalForwaderDownload.png)
+
+Run the installer:
 
 1. Accept the license agreement
 2. Select **An on-premises Splunk Enterprise instance**
@@ -152,15 +151,21 @@ On your `Company-PC`, run the installer:
 
 ## **Installing Sysmon**
 
-Download Sysmon from [Microsoft Sysinternals](https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon).
+Download Sysmon from [Microsoft Sysinternals](https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon) and extract it to a folder.
 
-We'll also need a configuration file.
+![Download Sysmon](/img/SysmonDownload.png)
 
-Extract Sysmon to a folder and open **PowerShell as Administrator**:
+We'll also need a configuration file.  Search for "Olaf sysmon config" and download the raw `sysmonconfig.xml` file from his GitHub repository.
+
+![Download Sysmon Config](/img/SysmonConfigDownload.png)
+
+Open **PowerShell** as Administrator and run this to install sysmon with your config:
 
 ```powershell
-cd "C:\path\to\sysmon\folder"
+cd "C:\Users\bob\Downloads\Sysmon"
 .\sysmon64.exe -i ..\sysmonconfig.xml
 ```
 
 Click **Agree** to install Sysmon.
+
+![Sysmon Powershell](/img/SysmonPowershell.png)
