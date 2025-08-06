@@ -257,7 +257,7 @@ At the top of the Windows Server window, hit **Input** -> **Keyboard** -> **Inse
 
 Once in, we'll be greeted by the **Server Manager** application. This is what we'll use to create our Active Directory environment later.
 
-### Minor Windows Server Configuration
+### **Minor Windows Server Configuration**
 
 Similar to the Windows 10 machine, we should set a static IP for our server.
 Use `192.168.10.7` as the IP address, with the same **Subnet mask**, **Default gateway** and **Preferred DNS server** as before.
@@ -307,7 +307,7 @@ On the **Guided storage configuration** we need to use the arrow keys to go down
 
 On the **Summary** screen we can click **Done** and then **Continue**
 
-Then we can setup our user profile with a username and a password.
+Then we can setup our user profile with a username and a password (I did `johntheuser` and `EvenStrongerPassword96`).
 Click **Done**.
 
 ![Profile Configuration](/img/ProfileConfiguration.png)
@@ -335,6 +335,41 @@ sudo apt-get update && sudo apt-get upgrade -y
 
 Enter your password and it will start downloading and installing.
 
+Next, we need to statically set an IP address, like we did on Windows. However on Ubuntu it's a bit different.
+Use the command:
+```bash
+sudo nano /etc/netplan/50-cloud-init.yaml
+```
+> **Note**: The `.yaml` file name could be different from mine, but there should only be 1 file in the `/etc/netplan/` directory.
+{: .prompt-warning }
+
+The file should look something like this:
+
+![Netplan File](/img/Netplan1.png)
+
+We are gonna turn off DHCP, add our static IP address, Google's nameserver (for now) and our default gateway. 
+The file should look something like this:
+
+![New Netplan File](/img/Netplan2.png)
+
+To save the file click **Ctrl+X** and then click **Y** and **Enter**.
+In the terminal window type this command:
+
+```bash
+sudo netplan apply
+```
+
+This will apply the settings.
+If we now type the command `ip a`, we will see our new static IP:
+
+![IP A](/img/IPA.png)
+
+To make sure we have connectivity, we can do a simple `ping google.com` command:
+
+![Ping Google Ubuntu](/img/UbuntuPing.png)
+
+Success!
+
 In part 2, we'll set up Splunk on this server.
 
 ## **Network NAT Settings**
@@ -348,8 +383,8 @@ Then click **Network**. Go to **Nat Networks** and click **Create**. Double clic
 
 ![Nat Network Settings](/img/NATNetwork.png)
 
-To put our machines onto the network we just created, open up VirtualBox and click **Settings** -> **Network**.  Change the **Attached To: NAT** to **NAT Network** and then the network we created before. 
-**Do this for all your machines.**
+To put our virtual machines onto the network we just created, open up VirtualBox and click **Settings** -> **Network**.  Change the **Attached To: NAT** to **NAT Network** and then the NAT network we created before. 
+**Do this for all your virtual machines.**
 
 ![Network Adapter NAT Network](/img/NetworkAdapter.png)
 
@@ -358,4 +393,4 @@ To put our machines onto the network we just created, open up VirtualBox and cli
 ## **What's next?**
 This was part 1 of a small series of blog posts. In the next post we'll configure Ubuntu server to add **Splunk**, create our **Active Directory** environment, configure the **Splunk Universal Forwarder** and more.
 
-
+[Part 2 here]({% post_url 2025-08-06-active-directory-home-lab-part-2 %})
