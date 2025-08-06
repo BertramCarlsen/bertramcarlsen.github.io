@@ -70,7 +70,7 @@ Check **Create Installation Media** and click next.
 
 You can customize the Windows 10 settings if you want, but the recommended options are fine. Click next.
 
-Now we are presented with the option of which media to use. Check the ISO file option and click next. You can then save the ISO to whatever place you want on your host pc.
+We are presented with the option of which media to use. Check the ISO file option and click next. You can then save the ISO to whatever place you want on your host pc.
 
 ![Choose Which Media To Use](/img/MediaToUse.png)
 
@@ -191,7 +191,7 @@ At the top of the Windows Server window, hit **Input** -> **Keyboard** -> **Inse
 
 ![CTRL ALT DEL](/img/WindowsServerCtrl+Alt+Del.png)
 
-Once in, we'll be greeted by the **Server Manager** application. This is what we'll use to create our Active Directory environment.
+Once in, we'll be greeted by the **Server Manager** application. This is what we'll use to create our Active Directory environment later.
 
 ## Downloading and Installing the Ubuntu Server
 
@@ -271,7 +271,11 @@ To do this, open up VirtualBox and click the three bullet points under **Tools**
 
 ![VirtualBox Bullet Points](/img/VirtualBoxBulletPoints.png)
 
-Then click **Network**. Go to **Nat Networks** and click **Create**. Double click the network we just created to change the name and the **IPv4 Prefix**. I'll use the network prefix we designated in the diagram (`192.168.10.0/24`). Keep the **Enable DHCP** box checked:
+Then click **Network**. Go to **Nat Networks** and click **Create**. Double click the network we just created to change the name and the **IPv4 Prefix**. I'll use the network prefix we designated in the diagram (`192.168.10.0/24`). Keep the **Enable DHCP** box checked and click **Apply**:
 
 ![Nat Network Settings](/img/NATNetwork.png)
 
+To put our machines onto the network we just created, open up VirtualBox and click **Settings** -> **Network**.  Change the **Attached To: NAT** to **NAT Network** and then the network we created before. 
+**Do this for all your machines.**
+
+![Network Adapter NAT Network](/img/NetworkAdapter.png)
