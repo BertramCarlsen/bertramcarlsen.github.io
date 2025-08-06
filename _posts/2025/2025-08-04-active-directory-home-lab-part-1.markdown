@@ -19,7 +19,7 @@ Before jumping into it straight away, I decided to make a diagram with the diffe
  - Active Directory running on [Windows Server 2022](https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2022)
  - Splunk SIEM running on [Ubuntu Server](https://ubuntu.com/download/server)
 
-![Home Lab](/img/Home_lab.png){: width="700" height="400" }
+![Active Directory Home Lab Diagram](/img/Home_Lab.png)
 
 ## **What is Active Directory? (High Level Overview)**
 
@@ -145,7 +145,7 @@ The first is the **Hostname** of the machine. To change it, search for **This PC
 
 ![This PC](/img/ThisPC.png)
 
-Click **Rename this PC** and change it to `Company-PC`, `Target-PC` or whatever you want. Click **Restart Now**. Now our **Hostname** is what we changed it to.
+Click **Rename this PC** and change it to `Company-PC` or whatever you want. Click **Restart Now**. Now our **Hostname** is what we changed it to.
 
 ![Rename PC](/img/RenamePC.png)
 

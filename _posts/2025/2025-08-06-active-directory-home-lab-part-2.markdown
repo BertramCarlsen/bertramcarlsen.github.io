@@ -127,3 +127,40 @@ sudo ./splunk enable boot-start -user splunk
 {: .prompt-warning }
 
 ![Splunk Boot Start](/img/SplunkBoot.png)
+
+Test connectivity by trying to access Splunk from the `Company-PC` machine. Open a web browser and navigate to:
+
+```
+http://192.168.10.10:8000
+```
+
+You should see the Splunk login page.
+
+## **Installing Splunk Universal Forwarder**
+
+On your host machine, go back to [splunk.com](https://splunk.com) -> **Trials & Downloads** -> **Universal Forwarder** -> **Get My Free Download**. Select **64-bit Windows** and download the MSI file.
+
+On your `Company-PC`, run the installer:
+
+1. Accept the license agreement
+2. Select **An on-premises Splunk Enterprise instance**
+3. **Username**: `admin`
+4. Leave **Generate random password** checked
+5. Skip the deployment server
+6. **Receiving Indexer**: `192.168.10.10:9997`
+7. Complete the installation
+
+## **Installing Sysmon**
+
+Download Sysmon from [Microsoft Sysinternals](https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon).
+
+We'll also need a configuration file.
+
+Extract Sysmon to a folder and open **PowerShell as Administrator**:
+
+```powershell
+cd "C:\path\to\sysmon\folder"
+.\sysmon64.exe -i ..\sysmonconfig.xml
+```
+
+Click **Agree** to install Sysmon.
