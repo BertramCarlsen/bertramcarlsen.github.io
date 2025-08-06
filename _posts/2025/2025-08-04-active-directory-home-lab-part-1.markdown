@@ -3,6 +3,9 @@ title: Active Directory Home Lab Part 1
 date: 2025-08-04 12:00:00 + 0100
 tags: [homelab, active directory, windows, splunk, sysmon]
 categories: [projects]
+image:
+  path: /img/Home_Lab.png
+  alt: Active Directory Home Lab Diagram
 ---
 
 I wanted to get some hands-on experience with [Active Directory](https://en.wikipedia.org/wiki/Active_Directory), so I figured I would set up a home lab.
