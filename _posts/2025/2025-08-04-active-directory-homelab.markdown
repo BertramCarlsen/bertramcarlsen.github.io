@@ -114,7 +114,7 @@ Windows will now be begin to be installed on the virtual machine. You can leave 
 
 ## Downloading and Installing Kali Linux
 
-Kali Linux is an open-source Bebian-based Linux distribution made for Penetration Testing, Computer Forensics and Reverse Engineering. It comes with a lot of ready to go applications for attacking the company machine. 
+Kali Linux is an open-source Debian-based Linux distribution made for Penetration Testing, Computer Forensics and Reverse Engineering. It comes with a lot of ready to go applications for attacking the company machine. 
 
 Before installing Kali Linux we need to install [7-Zip](https://www.7-zip.org/), because Kali Linux comes in a `.7z` archive.
 
