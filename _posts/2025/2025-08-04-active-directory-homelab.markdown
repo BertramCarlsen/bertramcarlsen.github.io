@@ -271,7 +271,7 @@ To do this, open up VirtualBox and click the three bullet points under **Tools**
 
 ![VirtualBox Bullet Points](/img/VirtualBoxBulletPoints.png)
 
-Then click **Network**. Go to **Nat Networks** and click **Create**. Double click the network we just created to change the name and the **IPv4 Prefix**. I'll use the network prefix we designated in the diagram (`192.168.10.0/24`):
+Then click **Network**. Go to **Nat Networks** and click **Create**. Double click the network we just created to change the name and the **IPv4 Prefix**. I'll use the network prefix we designated in the diagram (`192.168.10.0/24`). Keep the **Enable DHCP** box checked:
 
 ![Nat Network Settings](/img/NATNetwork.png)
 
