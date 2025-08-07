@@ -1,5 +1,5 @@
 ---
-title: Active Directory Home Lab Part 2
+title: Active Directory Home Lab Part 3
 date: 2025-08-07 12:00:00 + 0100
 tags: [homelab, active directory, windows, splunk, sysmon]
 categories: [projects]
