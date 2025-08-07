@@ -180,8 +180,6 @@ Navigate to:
 C:\Program Files\SplunkUniversalForwarder\etc\system\local
 ```
 
-
-
 Open **Notepad as Administrator** and create a new file called `inputs.conf` with the following content:
 
 ```ini
@@ -254,18 +252,19 @@ You should see the host listed as `Company-PC` and various source types includin
 
 ## **Windows Server Setup**
 
-Follow the same process for the Windows Server as we just did with the `Company-PC`:
+**Sysmon** and **Splunk Universal Forwarder** should also be installed on the Windows Server. The process is the same as we just did with the `Company-PC`:
 
 1. Install Sysmon and Splunk Universal Forwarder
 2. Use the same `inputs.conf` file
+3. Configure the Splunk Service Permissions
 3. Restart the Splunk service after configuration
 
 If everything is set up correctly, you should see two hosts in Splunk: `Company-PC` and `ADDC01`.
 
-## **Troubleshooting Tips**
+## **Troubleshooting**
 
 - Always restart the **SplunkForwarder** service after updating `inputs.conf`
-- Make sure the service runs as Local System account
+- Make sure the service runs as the `Local System` account
 - Verify network connectivity between machines
 - Make sure the `endpoint` index exists in Splunk
 

@@ -256,13 +256,19 @@ At the top of the Windows Server window, hit **Input** -> **Keyboard** -> **Inse
 
 ![CTRL ALT DEL](/img/WindowsServerCtrl+Alt+Del.png)
 
+
 Once in, we'll be greeted by the **Server Manager** application. This is what we'll use to create our Active Directory environment later.
 
 ### **Minor Windows Server Configuration**
 
 Similar to the Windows 10 machine, we should set a static IP for our server.
 Use `192.168.10.7` as the IP address, with the same **Subnet mask**, **Default gateway** and **Preferred DNS server** as before.
-This will be important when we configure **Active Directory** in part 2.
+
+We also need to change the **Hostname** of the server. To change it, search for **This PC** and click **Properties**.
+
+![This PC](/img/ThisPC.png)
+
+Click **Rename this PC** and change it to `Company-PC` or whatever you want. Click **Restart Now**. Now our **Hostname** is what we changed it to.
 
 ## **Downloading and Installing the Ubuntu Server**
 
