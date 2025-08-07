@@ -111,8 +111,6 @@ Create another **OU** called `HR` using the same process.
 
 Now let's create users in these OUs. Right-click the **IT** OU, select **New**, then **User**.
 
-![New User](/img/NewUser.png)
-
 Create the first user:
 - **First name**: `Bobby`
 - **Last name**: `Smith`
@@ -128,8 +126,6 @@ Now create another user in the **HR** OU:
 - **First name**: `John`
 - **Last name**: `Smith`
 - **User logon name**: `jsmith`
-
-![Terry Smith User](/img/JohnSmith.png)
 
 Set a password and uncheck **User must change password at next logon**.
 
