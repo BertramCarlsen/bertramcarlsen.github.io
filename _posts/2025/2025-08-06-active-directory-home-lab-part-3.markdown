@@ -190,9 +190,27 @@ Click **OK**, then **OK** again. You'll be prompted to restart the computer - cl
 
 After the restart, on the login screen, click **Other user**. You should see that the **Sign in to** field is set to `lab` (our domain).
 
-![Domain Login Screen](/img/DomainLoginScreen.png)
-
 Log in with one of our newly created users:
 - **Username**: `jsmith`
 - **Password**: [John's password]
 
+![John Login](/img/JohnLogin.png)
+
+Now we've successfully:
+1. Installed Active Directory Domain Services
+2. Promoted your server to a Domain Controller
+3. Created organizational units and users
+4. Joined a computer to the domain
+5. Logged in as a domain user
+
+## **Taking Snapshots**
+
+Before we proceed further, it's important to take snapshots of all our virtual machines. This way, if you break something during testing (which we should never be afraid of), you can always restore to a known good state.
+
+In VirtualBox, right-click each VM and select **Snapshots**, then **Take Snapshot**. Give each snapshot a name like "AD Lab - Post Domain Setup".
+
+
+
+## **What's Next?**
+
+We now have a fully functional Active Directory environment. In the next and final part of this series, we'll use **Kali Linux** to perform attacks against our domain and set up **Atomic Red Team** on our Windows Target machine to generate telemetry that we can analyze in Splunk.
