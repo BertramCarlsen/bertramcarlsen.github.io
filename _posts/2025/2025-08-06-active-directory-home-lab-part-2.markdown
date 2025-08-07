@@ -169,3 +169,106 @@ cd "C:\Users\bob\Downloads\Sysmon"
 Click **Agree** to install Sysmon.
 
 ![Sysmon Powershell](/img/SysmonPowershell.png)
+
+
+## **Configuring Splunk Universal Forwarder**
+
+This is the most important step. We need to tell our Splunk forwarder what data to send to our Splunk server.
+
+Navigate to:
+```
+C:\Program Files\SplunkUniversalForwarder\etc\system\local
+```
+
+
+
+Open **Notepad as Administrator** and create a new file called `inputs.conf` with the following content:
+
+```ini
+[WinEventLog://Application]
+index = endpoint
+disabled = false
+
+[WinEventLog://Security]
+index = endpoint
+disabled = false
+
+[WinEventLog://System]
+index = endpoint
+disabled = false
+
+[WinEventLog://Microsoft-Windows-Sysmon/Operational]
+index = endpoint
+disabled = false
+renderXml = true
+source = XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
+```
+
+Save this file as `inputs.conf` in the `local` directory.
+
+![Inputs.conf](/img/InputsConf.png)
+
+### **Updating Splunk Service Permissions**
+
+Search for **Services**, run as Administrator, and find **SplunkForwarder Service**.
+
+Double-click it, go to **Log On** tab, select **Local System account**, and click **Apply**. The service will need to be restarted.
+
+![Inputs.conf](/img/SplunkServiceProperties.png)
+
+Right-click the service and select **Restart**.
+
+## **Creating the Splunk Endpoint Index**
+
+Go to `http://192.168.10.10:8000`. Log in with the credentials you created earlier.
+
+Go to **Settings** -> **Indexes** -> **New Index**:
+- **Index Name**: `endpoint`
+- Click **Save**
+
+### **Enabling Data Receiving**
+
+Go to **Settings** -> **Forwarding and receiving** -> **Configure receiving** -> **New receiving port**:
+- **Listen on this port**: `9997`
+- Click **Save**
+
+
+### **Verifying the Splunk Setup**
+
+In Splunk, go to **Apps** -> **Search & Reporting**. Skip the welcome tours and search:
+
+```
+index=endpoint
+```
+
+Set the time frame to **Last 24 hours** and click **Search**. If everything is configured correctly, you should see these events coming in from your Company-PC:
+
+- Application logs
+- Security logs  
+- System logs
+- Sysmon logs
+
+You should see the host listed as `Company-PC` and various source types including Sysmon data.
+
+![Splunk Search](/img/SplunkSearch.png)
+
+## **Windows Server Setup**
+
+Follow the same process for the Windows Server as we just did with the `Company-PC`:
+
+1. Install Sysmon and Splunk Universal Forwarder
+2. Use the same `inputs.conf` file
+3. Restart the Splunk service after configuration
+
+If everything is set up correctly, you should see two hosts in Splunk: `Company-PC` and `ADDC01`.
+
+## **Troubleshooting Tips**
+
+- Always restart the **SplunkForwarder** service after updating `inputs.conf`
+- Make sure the service runs as Local System account
+- Verify network connectivity between machines
+- Make sure the `endpoint` index exists in Splunk
+
+## **What's Next?**
+
+In part 3, we'll set up **Active Directory Domain Services** on our Windows Server and configure our domain environment. This will include promoting the server to a **Domain Controller** and joining our `Company-PC` to the domain.
