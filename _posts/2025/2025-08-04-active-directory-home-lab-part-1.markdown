@@ -5,9 +5,9 @@ tags: [homelab, active directory, windows, splunk, sysmon]
 categories: [projects]
 ---
 
-I wanted to get some hands-on experience with [Active Directory](https://en.wikipedia.org/wiki/Active_Directory), so I figured I would set up a home lab.
+I wanted to get some hands-on experience with [Active Directory](https://en.wikipedia.org/wiki/Active_Directory) and [Splunk](https://www.splunk.com/), so I figured I would set up a home lab.
 
-This can serve as a tutorial for anyone wanting to build a home lab, where you can simulate attacks and a SIEM solution for logs.
+This can serve as a tutorial for anyone wanting to build an **Active Directory** home lab, where you can simulate attacks and a SIEM solution for logs.
 
 Before jumping into it straight away, I decided to make a diagram with the different systems and solutions I would use:
 
