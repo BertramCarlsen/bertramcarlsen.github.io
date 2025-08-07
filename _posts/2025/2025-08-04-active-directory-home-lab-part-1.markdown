@@ -262,7 +262,11 @@ Once in, we'll be greeted by the **Server Manager** application. This is what we
 ### **Minor Windows Server Configuration**
 
 Similar to the Windows 10 machine, we should set a static IP for our server.
-Use `192.168.10.7` as the IP address, with the same **Subnet mask**, **Default gateway** and **Preferred DNS server** as before.
+Select **Use the following IP address** and configure:
+- **IP address**: `192.168.10.7`
+- **Subnet mask**: `255.255.255.0`
+- **Default gateway**: `192.168.10.1`
+- **Preferred DNS server**: `8.8.8.8` (Google's DNS for now)
 
 We also need to change the **Hostname** of the server. To change it, search for **This PC** and click **Properties**.
 

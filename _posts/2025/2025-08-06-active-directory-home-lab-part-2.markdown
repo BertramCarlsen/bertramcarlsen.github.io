@@ -265,8 +265,11 @@ If everything is set up correctly, you should see two hosts in Splunk: `Company-
 
 - Always restart the **SplunkForwarder** service after updating `inputs.conf`
 - Make sure the service runs as the `Local System` account
-- Verify network connectivity between machines
+- Verify network connectivity between machines by using `ping`
 - Make sure the `endpoint` index exists in Splunk
+
+> **Note**: You won't be able to ping between Windows computers by default because ICMP (ping) traffic is blocked by Windows Firewall. If you wanted to enable this, you'd need to create an inbound firewall rule to allow ICMP traffic.
+{: .prompt-warning }
 
 ## **What's Next?**
 
