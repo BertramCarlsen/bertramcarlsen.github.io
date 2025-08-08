@@ -16,7 +16,7 @@ Before jumping into it straight away, I decided to make a diagram with the diffe
  - Active Directory running on [Windows Server 2022](https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2022)
  - Splunk SIEM running on [Ubuntu Server](https://ubuntu.com/download/server)
 
-![Active Directory Home Lab Diagram](/img/Home_Lab.png)
+![Active Directory Home Lab Diagram](/img/Home_Lab_Background.png)
 
 ## **What is Active Directory? (High Level Overview)**
 

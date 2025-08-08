@@ -9,7 +9,7 @@ In [part 1]({% post_url 2025-08-04-active-directory-home-lab-part-1 %}) of this 
 
 In this part we'll be installing and configuring **Splunk** on our Ubuntu server and setting up **Sysmon** and **Splunk Universal Forwarder** on both our Windows 10 machine and Windows Server to start collecting telemetry and sending logs to our Splunk server.
 
-![Active Directory Home Lab Diagram](/img/Home_Lab.png)
+![Active Directory Home Lab Diagram](/img/Home_Lab_Background.png)
 
 
 ## **Installing Splunk Enterprise**

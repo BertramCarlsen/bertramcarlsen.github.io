@@ -7,7 +7,7 @@ categories: [projects]
 
 In the previous parts, we set up our virtual machines, configured networking, and installed Splunk with Sysmon for logging on both Windows machines. Now we'll be installing and configuring **Active Directory Domain Services** on our Windows Server, promoting it to a **Domain Controller**, and finally joining our target machine to the newly created domain.
 
-![Active Directory Home Lab Diagram](/img/Home_Lab.png)
+![Active Directory Home Lab Diagram](/img/Home_Lab_Background.png)
 
 ## **Installing Active Directory Domain Services**
 
