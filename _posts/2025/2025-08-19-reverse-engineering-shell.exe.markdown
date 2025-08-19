@@ -1,4 +1,3 @@
-
 ---
 title: Reverse Engineering shell.exe
 date: 2025-08-19 12:00:00 + 0100
