@@ -1,6 +1,6 @@
 ---
 title: Reverse Engineering Writeup HTB
-date: 2025-08-07 12:00:00 + 0100
+date: 2025-08-20 12:00:00 + 0100
 tags: [writeup, reverse engineering, IDA, x64dbg]
 categories: [writeup]
 ---
