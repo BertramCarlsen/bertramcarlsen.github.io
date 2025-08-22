@@ -1,8 +1,8 @@
 ---
 title: Active Directory Home Lab Part 3
 date: 2025-08-07 12:00:00 + 0100
-tags: [homelab, active directory, windows, splunk, sysmon]
-categories: [projects]
+tags: [Home Lab, Active Directory, Windows, Splunk, Sysmon]
+categories: [Projects]
 ---
 
 In the previous parts, we set up our virtual machines, configured networking, and installed Splunk with Sysmon for logging on both Windows machines. Now we'll be installing and configuring **Active Directory Domain Services** on our Windows Server, promoting it to a **Domain Controller**, and finally joining our target machine to the newly created domain.

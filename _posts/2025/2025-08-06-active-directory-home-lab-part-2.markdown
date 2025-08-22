@@ -1,8 +1,8 @@
 ---
 title: Active Directory Home Lab Part 2
 date: 2025-08-06 12:00:00 + 0100
-tags: [homelab, active directory, windows, splunk, sysmon]
-categories: [projects]
+tags: [Home Lab, Active Directory, Windows, Splunk, Sysmon]
+categories: [Projects]
 ---
 
 In [part 1]({% post_url 2025-08-04-active-directory-home-lab-part-1 %}) of this project, we set up all of our virtual machines and did some basic configuration. 
