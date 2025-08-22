@@ -7,7 +7,7 @@ categories: [writeup]
 
 This is my process while doing the [HTB CDSA](https://academy.hackthebox.com/preview/certifications/htb-certified-defensive-security-analyst) Malware Reverse Engineering Skills Assesment.
 
-The module covers static analysis with **IDA**, debugging with **x64dbg** and dynamic analysis with **Noriben**.
+The module from HTB covers static analysis with **IDA**, debugging with **x64dbg** and dynamic analysis with **Noriben**. It concludes with this skills assesment, where you use the knowledge hands on.
 
 # Skills Assessment
 
