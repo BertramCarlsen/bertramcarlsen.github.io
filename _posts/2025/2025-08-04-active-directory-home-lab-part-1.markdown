@@ -197,6 +197,8 @@ The default credentials for Kali Linux is:
  - **Password**:
      - `kali`
 
+We'll finalize the setup later in the series.
+
 ## **Downloading and Installing the Windows Server**
 
 Navigate over to the [Microsoft website](https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2022). Under **Get started for free** click **Download the ISO** and then enter some information.
