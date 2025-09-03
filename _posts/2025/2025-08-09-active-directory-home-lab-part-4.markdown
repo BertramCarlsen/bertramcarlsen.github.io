@@ -41,6 +41,26 @@ sudo apt-get update && sudo apt-get upgrade -y
 
 Type in the password and once it's finished downloading we can move on.
 
+## Enabling RDP On Windows
+
+Before we can start simulating attacks, we need to enable RDP on the windows machine.
+
+To do this, search for **This PC** and click **Properties**.
+
+![This PC Properties](/img/ThisPC.png)
+
+Then scroll down and under **Related Settings**, click **Advanced System Settings**. Then enter the **Domain Administrator** credentials (also used for the Windows Server).
+
+Once opened, click the **Remote** tab and at the bottom, check **Allow remote connections to this computer**. 
+
+![Allow Remote Connections](/img/AllowRemoteConnections.png)
+
+Then click **Select Users** -> **Add**. Then write the 2 users we added to the AD environment (just type the username and click **Check Names**):
+
+![Add RDP Users](/img/AddRDPUsers.png)
+
+Click **Ok** -> **Ok** -> **Apply**.
+
 ## Crowbar Brute Force RDP Attack
 
 **Crowbar** is a brute forcing tool that can be used during penetration tests against different protocols, but we'll be targeting RDP.
@@ -51,7 +71,7 @@ To install it, use this command:
 sudo apt-get install -y crowbar
 ```
 
-To use **Crowbar**, we need a password list. In a real world scenario an advesary would either buy or create their own wordlist. But since we are simulating the attack, we can just use `rockyou`. `Rockyou` is list of passwords from a data breach in 2009, where an attacker breached the company RockYou and leaked 32 million user accounts. `Rockyou` has been included in Kali Linux since 2013.
+To use **Crowbar**, we need a password list. In a real world scenario an advesary would either buy or create their own wordlist. But since we are simulating the attack, we can just use `rockyou` and add the password of an active directory user. `Rockyou` is list of passwords from a data breach in 2009, where an attacker breached the company RockYou and leaked 32 million user accounts. `Rockyou` has been included in Kali Linux since 2013.
 
 The `rockyou` file is located in `/usr/share/wordlists`. Unzip the file using `gunzip`:
 
@@ -74,7 +94,7 @@ cp /usr/share/wordlists/rockyou.txt ~/Desktop/ActiveDirectory
 
 Then change into `ActiveDirectory` with `cd`.
 
-Normally a brute force attack takes a while, since you need to run through a big list of passwords, so let's make the `rockyou` file a bit smaller using the `head` command:
+Normally a brute force attack takes a while, because you need to run through a big list of passwords, but since we're simulating the attack, we won't be needing all of the passwords. So let's make the `rockyou` file a bit smaller using the `head` command:
 
 ```
 head -n 20 rockyou.txt > passwords.txt
@@ -82,14 +102,26 @@ head -n 20 rockyou.txt > passwords.txt
 
 The `head -n 20` command takes the first 20 lines of the file and then outputs it to `passwords.txt`.
 
-To ensure a sucessful attack, we should add one of the passwords of the 2 users we created in our Active Directory environment. Add it using the command `nano passwords.txt`.
+To ensure a sucessful attack, we should add one of the passwords of the 2 users we created in our Active Directory environment . Add it using the command `nano passwords.txt`.
 
 > **Note**: Remember to use the password you created for the account.
 {: .prompt-warning }
 
 ![Kali Nano Passwords.txt](/img/KaliNanoPasswords.png)
 
-### Enabling RDP On Windows
+Now we're all set to attack the windows machine.
 
-Now we need to actually enable RDP on the windows machine. 
+```
+crowbar -b rdp -u jsmith -C passwords.txt -s 192.168.10.100/32
+```
 
+ - `-b rdp`: Specifies to use the RDP service
+
+ - `-u jsmith`: Specifies the target user
+
+ - `-C passwords.txt`: Specifies the password list we created 
+
+ - `-s 192.168.10.100/32`: Specifies the target IP and subnet mask
+
+> **Note**: If you get the error **xfreerdp doesn't exist on the system**, you might need to add a symbolic link, because xfreerdp is installed as xfreerdp3. I did this with the command `sudo -ln -s /usr/bin/xfreerdp3 /usr/bin/xfreerdp`.
+{: .prompt-tip }
