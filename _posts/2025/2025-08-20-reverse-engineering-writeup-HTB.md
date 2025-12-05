@@ -1,8 +1,8 @@
 ---
-title: Reverse Engineering Writeup HTB
+title: Reverse Engineering Writeup (HackTheBox)
 date: 2025-08-20 12:00:00 + 0100
-tags: [Reverse Engineering, IDA, x64dbg, Skills Assesment, HTB]
-categories: [Writeups]
+tags: [Reverse Engineering, IDA, x64dbg, Skills Assesment, HackTheBox]
+categories: [Write Ups]
 ---
 
 This is my process while doing the [HTB CDSA](https://academy.hackthebox.com/preview/certifications/htb-certified-defensive-security-analyst) Malware Reverse Engineering Skills Assesment.
