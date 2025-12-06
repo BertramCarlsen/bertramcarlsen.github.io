@@ -5,7 +5,7 @@ tags: [HackTheBox, Educational]
 categories: [Write Ups]
 ---
 
-This is an educational write up for the Soulmate Box on HackTheBox (link [here](https://www.hackthebox.com/machines/soulmate)). I've tried to write it so less technical people would be able to understand
+This is an educational write up for the Soulmate Box on HackTheBox (link [here](https://www.hackthebox.com/machines/soulmate)). I've tried to write it so less technical people would be able to understand.
 
 
 
@@ -426,12 +426,12 @@ Let's review the complete attack path:
 
 **Key Vulnerabilities Exploited**
 
- - **CVE-2025-31161** - Authentication bypass in CrushFTP
+ - **CVE-2025-31161**: Authentication bypass in CrushFTP
 
- - **Insecure credential storage** - Plaintext passwords in configuration files
+ - **Insecure credential storage**: Plaintext passwords in configuration files
 
- - **Insufficient access controls** - Erlang shell allowing OS command execution
+ - **Insufficient access controls**: Erlang shell allowing OS command execution
 
- - **Lack of input validation** - PHP backdoor execution
+ - **Unsafe file upload permissions**: Allowed uploading executable files into the web root.
 
- - **Weak file permissions** - Configuration files readable by low-privilege users
+ - **Weak file permissions**: Configuration files readable by low-privilege users
