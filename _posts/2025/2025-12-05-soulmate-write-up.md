@@ -23,7 +23,7 @@ To start, `rustscan` was used to enumerate the ports open on the target machine:
 sudo rustscan 10.10.11.86
 ```
 
-![Rust Scan](../../img/Soulmate_Rustscan.png)
+![Rust Scan](/img/Soulmate_Rustscan.png)
 
 We see ports: 
 
@@ -37,7 +37,7 @@ We see ports:
 sudo nmap -sV -sC 10.10.11.86 -p22,80,4369
 ```
 
-![Nmap Scan](../../img/Soulmate_NmapScan.png)
+![Nmap Scan](/img/Soulmate_NmapScan.png)
 
 `Gobuster` scan to enumerate sub directories:
 
@@ -45,13 +45,13 @@ sudo nmap -sV -sC 10.10.11.86 -p22,80,4369
 gobuster dir -u http://soulmate.htb -w /usr/share/wordlists/dirbuster/directory-list-1.0.txt
 ```
 
-![Gobuster Scan](../../img/Soulmate_Gobuster.png)
+![Gobuster Scan](/img/Soulmate_Gobuster.png)
 
 Gobuster didn't really return anything valuable.
 
 Checking out the website on port `80`, we can see that it's a dating site:
 
-![Soulmate Website](../../img/Soulmate_Website.png)
+![Soulmate Website](/img/Soulmate_Website.png)
 
 To enumerate the subdomains of the website `ffuf` can be used:
 
@@ -59,25 +59,25 @@ To enumerate the subdomains of the website `ffuf` can be used:
 ffuf -w /usr/share/wordlists/dirbuster/directory-list-1.0.txt -u http://soulmate.htb/ -H "Host:FUZZ.soulmate.htb" -c -t 50 -fs 154  
 ```
 
-![Ffuf Scan](../../img/Soulmate_Ffuf.png)
+![Ffuf Scan](/img/Soulmate_Ffuf.png)
 
 The subdomain `ftp` was found. This needs to be added to our `/etc/hosts` file, as such:
 
-![Hosts File](../../img/Soulmate_HostsFile.png)
+![Hosts File](/img/Soulmate_HostsFile.png)
 
 Now we can navigate over to `http://ftp.soulmate.htb`:
 
-![CrushFTP Website](../../img/Soulmate_CrushFTP.png)
+![CrushFTP Website](/img/Soulmate_CrushFTP.png)
 
 In the source code of the website page, we can see the version of CrushFTP:
 
-![CrushFTP Version](../../img/Soulmate_CrushFTPVersion.png)
+![CrushFTP Version](/img/Soulmate_CrushFTPVersion.png)
 
 A google search reveals CVE-2025-31161. Thanks to Immersive Labs Security, a POC can be found on [github](https://github.com/Immersive-Labs-Sec/CVE-2025-31161).
 
 Armed with this exploit, we can create a user on the site:
 
-![CVE-2025-31161 Exploit POC](../../img/Soulmate_FTPExploit.png)
+![CVE-2025-31161 Exploit POC](/img/Soulmate_FTPExploit.png)
 
 Now we can log in with the credentials we just created:
 
