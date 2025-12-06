@@ -5,7 +5,7 @@ tags: [HackTheBox, Educational]
 categories: [Write Ups]
 ---
 
-This is an educational write up for the Soulmate Box on HackTheBox (link [here](https://www.hackthebox.com/machines/soulmate)). I've tried to write it so less technical people would be abler to understand
+This is an educational write up for the Soulmate Box on HackTheBox (link [here](https://www.hackthebox.com/machines/soulmate)). I've tried to write it so less technical people would be able to understand
 
 
 
@@ -17,10 +17,9 @@ Add this line to the bottom of your `/etc/hosts` file:
 10.10.11.86 soulmate.htb
 ```
 
-> **Why do we need this?**
+**Why do we need this?**
 
-> The `/etc/hosts` file maps domain names to IP addresses on your local machine. Many web applications use virtual hosts (different websites on the same server), which requires accessing them by hostname rather than IP. This mapping tells your computer "when I type `soulmate.htb`, connect to `10.10.11.86`."
-{: .prompt-warning }
+The `/etc/hosts` file maps domain names to IP addresses on your local machine. Many web applications use virtual hosts (different websites on the same server), which requires accessing them by hostname rather than IP. This mapping tells your computer "when I type `soulmate.htb`, connect to `10.10.11.86`."
 
 ## Reconnaissance
 
@@ -50,7 +49,7 @@ Rustscan is a fast port scanner that quickly identifies which network ports are 
  - Port `80` suggests there's a web application we can explore
  - Port `4369` indicates Erlang is running, which might have its own vulnerabilities or custom services
 
-Next, we use `nmap` with with the flags `-sV -sC` on the open ports we just discovered: 
+Next, we use `nmap` with the flags `-sV -sC` on the open ports we just discovered: 
 
 ```
 sudo nmap -sV -sC 10.10.11.86 -p22,80,4369
@@ -241,7 +240,7 @@ uid=33(www-data) gid=33(www-data) groups=33(www-data)
  - We're running as the `www-data` user (the web server's user account)
  - This is a low-privilege account, but it's our foothold into the system
 
-**Note**: The file gets automatically deleted every few minutes by a cleanup script, so we need to work quickly or keep reuploading it.
+**Note**: The file is automatically deleted every few minutes by a cleanup script, so we need to work quickly or keep reuploading it.
 
 ## Getting a Reverse Shell
 
@@ -302,6 +301,8 @@ This creates a proper pseudo-terminal (PTY) that behaves like a normal SSH sessi
 ## Privilege Escalation
 
 We're currently `www-data`, which has limited permissions. We need to escalate to a real user account to access sensitive files like user flags.
+
+### Running LinPEAS
 
 [Linpeas.sh](https://github.com/peass-ng/PEASS-ng) is an automated privilege escalation script that checks for hundreds of potential security weaknesses. It's like having an experienced pentester scan the system for you.
 
@@ -398,7 +399,7 @@ os:cmd("cat /root/root.txt").
 
 Success! We obtained the root flag through the Erlang shell.
 
-**Why did that work:**
+**Why did this work?:**
 
 The custom Erlang SSH service is running with elevated privileges and allows authenticated users (`ben`) to execute arbitrary system commands through Erlang functions. This is a classic example of a custom application with insufficient security controls.
 
@@ -411,7 +412,7 @@ Let's review the complete attack path:
 
  - **Initial Exploit**: Used **CVE-2025-31161** to create admin account on CrushFTP
 
- - **Lateral Movement**: Reset `ben`'s password through admin panel
+ - **Lateral Movement**: Reset `ben`'s password through the admin panel
 
  - **Code Execution**: Uploaded PHP backdoor to web server
 
@@ -424,6 +425,7 @@ Let's review the complete attack path:
  - **Privilege Escalation**: Used Erlang SSH shell to read root flag
 
 **Key Vulnerabilities Exploited**
+
  - **CVE-2025-31161** - Authentication bypass in CrushFTP
 
  - **Insecure credential storage** - Plaintext passwords in configuration files
