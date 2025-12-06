@@ -23,7 +23,7 @@ The `/etc/hosts` file maps domain names to IP addresses on your local machine. M
 
 ## Reconnaissance
 
-Reconnaissance is the information-gathering phase where we discover what services are running on the target. Think of it like casing a building before attempting entry - you need to know where the doors are and how they're protected.
+Reconnaissance is the information gathering phase where we discover what services are running on the target. Think of it like casing a building before attempting entry - you need to know where the doors are and how they're protected.
 
 ### Port Scanning
 
