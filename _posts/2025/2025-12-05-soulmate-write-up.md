@@ -1,7 +1,7 @@
 ---
 title: Soulmate Box Write Up (HackTheBox)
 date: 2025-12-05 12:00:00 + 0100
-tags: [HackTheBox, Educational]
+tags: [HackTheBox, Educational, Linux, CVE]
 categories: [Write Ups]
 ---
 
@@ -289,6 +289,12 @@ The `%20`, `%22`, and `%27` are URL-encoded spaces, quotes, and apostrophes. Bro
 Now we have reverse shell to the web server! We should start by checking what our `id` is and upgrading to a PTY shell:
 
 ![Initial Shell](/img/Soulmate_InitialShell.png)
+
+Background the current remote shell (CTRL + Z), update the local terminal line settings with `stty2` and bring the remote shell back:
+
+```
+stty raw -echo && fg
+```
 
 **What we have now:**
  - Interactive shell as `www-data` user
