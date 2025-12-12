@@ -306,7 +306,16 @@ This creates a proper pseudo-terminal (PTY) that behaves like a normal SSH sessi
 
 ## Privilege Escalation
 
-We're currently `www-data`, which has limited permissions. We need to escalate to a real user account to access sensitive files like user flags.
+We're currently `www-data`, which has limited permissions.
+
+**What is privilege escalation?:**
+
+Privilege escalation is exploiting weaknesses to gain higher-level permissions than you should have. Think of it like being a regular employee who finds a way to get executive access badges. There are many ways to escalate privileges:
+
+ - Exploiting misconfigured permissions
+ - Finding passwords or credentials
+ - Exploiting vulnerable software
+ - Abusing system services
 
 ### Running LinPEAS
 
