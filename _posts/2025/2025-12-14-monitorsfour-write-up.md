@@ -5,7 +5,7 @@ tags: [HackTheBox, Educational, Windows, CVE, Docker, Sandbox Escape]
 categories: [Write Ups]
 ---
 
-This is an educational write up for the MonitorsFour Box on HackTheBox (link [here](https://www.hackthebox.com/machines/monitorsfour)). This box demonstrates several concepts including PHP type juggling, Docker security misconfigurations, and a docker container escape techniques on a Windows host.
+This is an educational write up for the MonitorsFour Box on HackTheBox (link [here](https://www.hackthebox.com/machines/monitorsfour)). This box demonstrates several concepts including PHP type juggling, Docker security misconfigurations, and a Docker container escape on a Windows host.
 
 ## Reconnaissance
 
@@ -31,7 +31,7 @@ Let's start by identifying which network ports are open using rustscan:
 ![Rust Scan](/img/MonitorsFour/RustScan.png)
 
 
-**What is Rustscan?:**
+**What is Rustscan?**
 
 **Rustscan** is a fast port scanner that quickly identifies which network ports are open (accepting connections). Think of ports like different doors into a building - port `80` might be the main entrance (web server), port `22` is the secure back door (SSH), etc. If more ports (doors) are open, we get a bigger attack surface on the machine (building).
 
@@ -61,7 +61,7 @@ sudo nmap -sV --script=http-php-version 10.10.11.98 -p80
 
 ![PHP Version](/img/MonitorsFour/PHPVersion.png)
 
-**Why is version information critical?:**
+**Why is version information critical?**
 
 Knowing the exact software versions lets us search for known vulnerabilities (CVEs). Older or unpatched software often has published exploits that we can use. It's like knowing which locks on a building have known design flaws that make them easier to pick.
 
@@ -116,7 +116,7 @@ ffuf -w /usr/share/wordlists/dirbuster/directory-list-1.0.txt -u http://monitors
 
 We found the subdomain `cacti.monitorsfour.htb`
 
-**What is Cacti?:**
+**What is Cacti?**
 
 Cacti is an open-source network monitoring and graphing tool widely used in corporate environments. It collects data from network devices, servers, and services, then generates graphs showing performance trends. Think of it as a dashboard showing the health of an entire IT infrastructure.
 
@@ -129,25 +129,6 @@ Let's add this subdomain to our `/etc/hosts` file:
 ![Hosts File](/img/MonitorsFour/HostsFile2.png)
 
 ## Initial Access: Exploiting PHP Type Juggling
-
-### Discovering Sensitive Configuration Files
-
-Let's check if common configuration files are exposed:
-
-```
-http://monitorsfour.htb/.env
-```
-
-![.env File](/img/MonitorsFour/EnvFile.png)
-
-**What is a .env file?:**
-A `.env` file stores environment variables. Applications need configuration settings to run. This includes sensitive information like:
-
- - Database passwords
- - API keys and secrets
- - Encryption keys
- - Third-party service credentials
- - Debug settings
 
 ### Investigating the /user API Endpoint
 
@@ -167,7 +148,7 @@ monitorsfour.htb/user?token=1111
 
 Now we get a different error: "Invalid or missing token"
 
-**What do these error messages reveal?:**
+**What do these error messages reveal?**
 
 The application performs two-stage validation:
 
@@ -191,7 +172,7 @@ curl http://monitorsfour.htb/user?token=1111
 
 ![Curl User Endpoint](/img/MonitorsFour/CurlUserEndpoint.png)
 
-**Why use curl instead of a browser?:**
+**Why use curl instead of a browser?**
 
 curl is a command-line tool for making HTTP requests. It's preferred for security testing because:
 
@@ -208,7 +189,7 @@ After some research on Google, I found [PHP Type Juggling](https://www.php.net/m
 
 ![PHP Type Juggling](/img/MonitorsFour/PHPTypeJuggling.png)
 
-PHP uses loose comparison operators (`==` and `!=`) to perform type juggling. When these operators are used, PHP will attempt to convert the values being compared to a common type. This can lead to unexpected results, when comparing values that are not directly comptatible. As an example, comparing the string `4 cars` to the integer `4` will yield `true`, because PHP extracts the integer from the string.
+PHP uses loose comparison operators (`==` and `!=`) to perform type juggling. When these operators are used, PHP will attempt to convert the values being compared to a common type. This can lead to unexpected results when comparing values that are not directly compatible. As an example, comparing the string `4 cars` to the integer `4` will yield `true`, because PHP extracts the integer from the string.
 
 PHP's loose comparison is so "loose" that it makes surprising judgments, leading to security vulnerabilities.
 
@@ -237,7 +218,7 @@ If `$stored_token` is a string like "abc123", but we send the integer `0`, PHP c
 
 A special case of type juggling involves "**magic hashes**", which is hash values that look like scientific notation.
 
-**What is a scientific notation?:**
+**What is a scientific notation?**
 
 A scientific notation is a method for expressing very large or very small numbers. It's particularly used in science, engineering and mathematics. For example, the number `4,800,000,000,000`, can be written as `4.8 * 10^12`.
 
@@ -271,7 +252,7 @@ curl http://monitorsfour.htb/user?token=PAYLOAD
 
 Success! The payload `0` returns a response. This confirms the PHP backend is vulnerable to a loose comparison attack.
 
-**What just happened?:**
+**What just happened?**
 
 We guessed correctly and the backend code likely looks something like:
 
@@ -299,7 +280,7 @@ curl http://monitorsfour.htb/user?token=0 > response.json
 
 ![Curl Response](/img/MonitorsFour/CurlResponseDownload.png)
 
-After prettyfying it, it looks like this:
+After prettifying it, it looks like this:
 
 ![Curl Response Pretty](/img/MonitorsFour/CurlResponsePretty.png)
 
@@ -322,10 +303,10 @@ hashcat -m 0 <HashFileName> /usr/share/wordlists/rockyou.txt
 
 ![Hashcat Cracking](/img/MonitorsFour/HashcatCracking.png)
 
-**What is hashcat?:**
+**What is hashcat?**
 Hashcat is one of the world's fastest password cracking tool. It uses your computer's GPU (graphics card) to test millions or billions of password guesses per second against hashed passwords.
 
-**How does password cracking work?:**
+**How does password cracking work?**
 
  - Take a known hash (from the database leak)
  - Try potential passwords from a wordlist
@@ -372,7 +353,7 @@ Username enumeration is often necessary even when you have valid passwords. Comm
 
 ### Exploiting Cacti for Remote Code Execution
 
-We know the version of **Cacti** being used is `1.2.28`. Let's Google for any known vulnerabilities for this version:
+We know the version of **Cacti** being used is `1.2.28` from the login page. Let's Google for any known vulnerabilities for this version:
 
 ![Cacti Vulnerabilities](/img/MonitorsFour/CactiVulnerability.png)
 
@@ -381,11 +362,11 @@ I found a **PoC** on [Github](https://github.com/SoftAndoWetto/CVE-2025-24367-Po
 
 **CVE-2025-24367** is an authenticated **Remote Code Execution (RCE)** vulnerability in **Cacti** (network monitoring framework) that allows authenticated users to write arbitrary PHP scripts to the web server's root directory.
 
-**What is Remote Code Execution (RCE)?:**
+**What is Remote Code Execution (RCE)?**
 
 RCE is one of the most severe vulnerability types. It means an attacker can run any command they want on the target system. The attackers essentially gains the same control as if they were sitting at the keyboard. Think of it like having a remote control that can operate any function of the computer.
 
-**What does the PoC do?:**
+**What does the PoC do?**
 
 **Prerequisites:**
 
@@ -457,7 +438,7 @@ Nice! We now have a reverse shell as the user `www-data`. We can also obtain the
 
 We're currently `www-data`, which still has limited permissions. The goal is to escalate to root (administrator) access to gain complete control of the system and read the root flag.
 
-**What is privilege escalation?:**
+**What is privilege escalation?**
 
 Privilege escalation is exploiting weaknesses to gain higher-level permissions than you should have. Think of it like being a regular employee who finds a way to get executive access badges. There are many ways to escalate privileges:
 
@@ -499,7 +480,7 @@ chmod +x linpeas.sh
 
 Linpeas tells us we're in a **Docker container**.
 
-**What is Docker and what does this mean?:**
+**What is Docker and what does this mean?**
 
 Docker is containerization technology that packages applications with all their dependencies into isolated environments called "containers". Think of a container like a lightweight, isolated mini-computer running inside the main computer (the host).
 
@@ -531,7 +512,7 @@ cat /etc/resolv.conf
 ```
 
 
-![alt text](/img/MonitorsFour/NetworkInfo.png)
+![Network Architecture](/img/MonitorsFour/NetworkInfo.png)
 
  - `172.18.0.3`: Our Container (Cacti).
  - `172.18.0.2`: MariaDB Container (database server)
@@ -579,13 +560,13 @@ chmod +x fscan
 
 ![Running Fscan](/img/MonitorsFour/RunFscan.png)
 
-**What is Fscan?:**
+**What is Fscan?**
 
 **Fscan** is a comprehensive internal network scanner designed for penetration testing. It's particularly useful for scanning hosts from within a compromised network, checking for common vulnerabilities and misconfigurations.
 
 **Result**: Port `2375` is open on the Docker host.
 
-Port `2375` is the **Docker Daemon API** - the control interface for Docker itself. The Docker daemon is the background service that manages all containers, images, networks, and volumes.
+Port `2375` is the **Docker daemon API** - the control interface for Docker itself. The Docker daemon is the background service that manages all containers, images, networks, and volumes.
 
 The **Docker daemon API** is extremely powerful. If accessible without authentication, it allows anyone to:
 
@@ -611,11 +592,11 @@ In Docker Desktop for Windows (prior to specific patches), exposing the Docker d
 
 Crucially, Docker on Windows allows mounting the host’s logical drives (like `C:\`) into containers via the API. By creating a new privileged container and mounting `C:\`, we can read or write any file on the host Windows OS.
 
-**What is WSL2?:**
+**What is WSL2?**
 
 **WSL2 (Windows Subsystem for Linux 2)** allows running a real Linux kernel inside Windows. It's like having a Linux computer running inside your Windows computer, with deep integration between the two systems.
 
-**Why is Docker on Windows special?:**
+**Why is Docker on Windows special?**
 
  - Containers run in a Linux environment provided by *WSL2*
  - But the host is actually Windows
@@ -631,25 +612,25 @@ Crucially, Docker on Windows allows mounting the host’s logical drives (like `
 5. We can mount the Windows `C:\` drive into our new container
 6. This gives us full read/write access to the Windows host filesystem
 
-### Using the Exploit
+### Docker Container Escape
 
 Let's try using the attack chain.
 
 #### Step 1: Enumerate Available Docker Images
 
-To utilize this attack method, we need to have a valid image name. We can do this by querying the Docker Daemon API:
+To utilize this attack method, we need to have a valid image name. We can do this by querying the Docker daemon API:
 
 ```
 curl -s http://192.168.65.7:2375/images/json
 ```
 
-![Curl Images from Docker Daemon API](/img/MonitorsFour/CurlImagesFromDockerDaemonAPI.png)
+![Curl Images from Docker daemon API](/img/MonitorsFour/CurlImagesFromDockerDaemonAPI.png)
 
 After formatting the JSON response:
 
-![Curl Images from Docker Daemon API Pretty](/img/MonitorsFour/CurlResponsePretty2.png)
+![Curl Images from Docker daemon API Pretty](/img/MonitorsFour/CurlResponsePretty2.png)
 
-**What are Docker images?:**
+**What are Docker images?**
 
 Docker images are like templates or blueprints for creating containers. They contain:
 
@@ -690,7 +671,7 @@ echo '{
  - `Cmd`: Command to run when container starts (our reverse shell)
  - `HostConfig.Binds`: Volume mounts - maps `/mnt/host/c` (Windows C: drive) to `/host_root` inside container
 
-**What is a volume mount / bind mount?:**
+**What is a volume mount / bind mount?**
 
 A bind mount connects a directory from the host to a directory in the container. They share the same files - changes in either location affect both.
 
@@ -707,7 +688,7 @@ curl -H 'Content-Type: application/json' \
 
 ![Curl Create Container](/img/MonitorsFour/CurlCreateContainer.png)
 
-**What just happened?:**
+**What just happened?**
 
 We sent an HTTP POST request to the Docker API's `/containers/create` endpoint. The API:
 
@@ -771,3 +752,8 @@ cat root.txt
 ![Obtain Root Flag](/img/MonitorsFour/ObtainRootFlag.png)
 
 Success! We've achieved complete compromise by escaping from the Docker container to the Windows host.
+
+
+## Conclusion 
+
+In this box, a simple coding oversight (using `==` instead of `===` in PHP) led to an authentication bypass. Additionally, using default credentials can quickly give attackers an entry point. The Cacti RCE was a case of improper input sanitization (not stripping newlines), highlighting how even authenticated users can pose a threat if an app isn’t careful. Finally, the misconfigured Docker daemon API demonstrates the importance of network segmentation and not exposing powerful services without authentication. Combined, these flaws allowed a complete compromise of the system.
