@@ -281,9 +281,9 @@ When we send `token=0`, PHP's loose comparison evaluates the stored token agains
 
 **Why did 0 work?**
 
-The value 0 works because PHP converts both values to numbers during a loose comparison, and many strings evaluate to numeric zero.
+The value `0` works because PHP converts both values to numbers during a loose comparison (`==`), and many strings evaluate to numeric zero.
 
-The stored token probably converts to something that equals 0 in PHP's loose comparison logic.
+As a result, the stored token is implicitly converted to `0`, causing the comparison to succeed and bypass the authentication check.
 
 ### Harvesting Employee Credentials
 
