@@ -1,5 +1,5 @@
 ---
-title: MonitoursFour Box Write Up (HackTheBox)
+title: MonitorsFour Box Write Up (HackTheBox)
 date: 2025-12-14 12:00:00 + 0100
 tags: [HackTheBox, Educational, Windows, CVE, Docker, Sandbox Escape]
 categories: [Write Ups]
