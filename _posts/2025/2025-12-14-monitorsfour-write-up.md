@@ -216,7 +216,7 @@ If `$stored_token` is a string like "abc123", but we send the integer `0`, PHP c
 
 ### Magic Hash Attacks
 
-A special case of type juggling involves "**magic hashes**", which is hash values that look like scientific notation.
+A special case of type juggling involves "**magic hashes**", which is hash values that are interpreted as scientific notation.
 
 **What is a scientific notation?**
 
@@ -304,7 +304,7 @@ hashcat -m 0 <HashFileName> /usr/share/wordlists/rockyou.txt
 ![Hashcat Cracking](/img/MonitorsFour/HashcatCracking.png)
 
 **What is hashcat?**
-Hashcat is one of the world's fastest password cracking tool. It uses your computer's GPU (graphics card) to test millions or billions of password guesses per second against hashed passwords.
+Hashcat is one of the world's fastest password cracking tools. It uses your computer's GPU (graphics card) to test millions or billions of password guesses per second against hashed passwords.
 
 **How does password cracking work?**
 
@@ -328,7 +328,7 @@ The password can be found either in the ouput of `hashcat` or in the **potfile**
 
 ### Accessing Cacti
 
-Let's try using the Admin's credentials on `cacti.monitorsfour.htb`:
+Let's try using the admin's credentials on `cacti.monitorsfour.htb`:
 
 **Credentials**:
 
@@ -411,7 +411,7 @@ Let's use the exploit. First use **Netcat** to set up a listener:
 nc -lvnp 4444
 ```
 
-**What is netcat and why do we need a listener?**
+**What is Netcat and why do we need a listener?**
 
 **Netcat** is often called the "Swiss Army knife" of networking. Here we're using it to wait for the target machine to connect back to us.
 
