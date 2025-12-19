@@ -1,11 +1,11 @@
 ---
 title: Code Part Two Box Write Up (HackTheBox)
 date: 2025-12-09 12:00:00 + 0100
-tags: [HackTheBox, Educational, Linux, CVE]
+tags: [HackTheBox, Educational, Linux, CVE, Sandbox Escape]
 categories: [Write Ups]
 ---
 
-This is an educational write up for the Code Part Two Box on HackTheBox (link [here](https://www.hackthebox.com/machines/codeparttwo)).This is a follow up to Code Part One, which can be found [here](https://www.hackthebox.com/machines/code).
+This is an educational write up for the Code Part Two Box on HackTheBox (link [here](https://www.hackthebox.com/machines/codeparttwo)). This box is a follow up to Code Part One, which can be found [here](https://www.hackthebox.com/machines/code).
 
 ## Reconnaissance
 
@@ -456,7 +456,7 @@ hashcat -m 0 <HashFileName> /usr/share/wordlists/rockyou.txt
 
 ![Hashcat Cracking](/img/CodePartTwo_Hashcatcracking.png)
 
-Once done, we can find the cracked password in the potfile located, atleast on my kali machine, in `~/.local/share/hashcat/hashcat.potfile`:
+Once done, we can find the cracked password in the output in the command line or in the potfile located (atleast on my Kali machine) in `~/.local/share/hashcat/hashcat.potfile`:
 
 ```
 cat ~/.local/share/hashcat/hashcat.potfile

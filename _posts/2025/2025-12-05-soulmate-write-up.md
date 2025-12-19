@@ -105,7 +105,7 @@ ffuf -w /usr/share/wordlists/dirbuster/directory-list-1.0.txt -u http://soulmate
 
 ![Ffuf Scan](/img/Soulmate_Ffuf.png)
 
-**What is `ffuf` doing?**
+**What is Ffuf doing?**
 
 **Ffuf (Fuzz Faster U Fool)** tests thousands of potential subdomain names by modifying the HTTP Host header. The `-fs 154` flag filters out responses of 154 bytes (the default error page size).
 
