@@ -7,7 +7,7 @@ categories: [Write Ups]
 
 This is an educational write up for the MonitorsFour Box on HackTheBox (link [here](https://www.hackthebox.com/machines/monitorsfour)). This box demonstrates several concepts including PHP type juggling, Docker security misconfigurations, and a docker container escape techniques on a Windows host.
 
-# Reconnosaince
+# Reconnaissance
 
 Reconnaissance is the information gathering phase where we discover what services are running on the target. Think of it like casing a building before attempting entry - you need to know where the doors are and how they're protected.
 
@@ -280,12 +280,8 @@ if ($valid_token == $_GET['token']) {
 When we send `token=0`, PHP's loose comparison evaluates the stored token against integer `0`. Due to type juggling quirks, this comparison succeeds, granting us access to the data despite not having the actual token value.
 
 **Why did 0 work?**
-The integer 0 is PHP's "universal match" in loose comparisons:
 
- - `0 == "0"` (TRUE)
- - `0 == ""` (TRUE)
- - `0 == false` (TRUE)
- - `0 == "0e123"` (TRUE)
+The value 0 works because PHP converts both values to numbers during a loose comparison, and many strings evaluate to numeric zero.
 
 The stored token probably converts to something that equals 0 in PHP's loose comparison logic.
 
@@ -325,7 +321,7 @@ hashcat -m 0 <HashFileName> /usr/share/wordlists/rockyou.txt
 **What is hashcat?:**
 Hashcat is one of the world's fastest password cracking tool. It uses your computer's GPU (graphics card) to test millions or billions of password guesses per second against hashed passwords.
 
-**How does passwording cracking work?:**
+**How does password cracking work?:**
 
  - Take a known hash (from the database leak)
  - Try potential passwords from a wordlist
@@ -607,7 +603,7 @@ Let's try researching on Google for the result we got from **Fscan**. I found th
 
 ### Vulnerability Theory 
 
-In Docker Desktop for Windows (prior to specific patches), exposing the Docker daemon on TCP `2375` inside the **WSL2** network (even if not exposed to the public internet) allows any container to control the Docker engine.
+In Docker Desktop for Windows (prior to specific patches), exposing the Docker daemon on TCP `2375` inside the **WSL2** network allows any container to control the Docker engine, if the daemon is unauthenticated.
 
 Crucially, Docker on Windows allows mounting the host’s logical drives (like `C:\`) into containers via the API. By creating a new privileged container and mounting `C:\`, we can read or write any file on the host Windows OS.
 
@@ -635,7 +631,7 @@ Crucially, Docker on Windows allows mounting the host’s logical drives (like `
 
 Let's try using the attack chain.
 
-#### Step 1: Enumerate Avaiable Docker Images
+#### Step 1: Enumerate Available Docker Images
 
 To utilize this attack method, we need to have a valid image name. We can do this by querying the Docker Daemon API:
 
