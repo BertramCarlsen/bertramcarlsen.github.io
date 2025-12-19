@@ -7,7 +7,7 @@ categories: [Write Ups]
 
 This is an educational write up for the MonitorsFour Box on HackTheBox (link [here](https://www.hackthebox.com/machines/monitorsfour)). This box demonstrates several concepts including PHP type juggling, Docker security misconfigurations, and a docker container escape techniques on a Windows host.
 
-# Reconnaissance
+## Reconnaissance
 
 Reconnaissance is the information gathering phase where we discover what services are running on the target. Think of it like casing a building before attempting entry - you need to know where the doors are and how they're protected.
 
@@ -128,9 +128,9 @@ Let's add this subdomain to our `/etc/hosts` file:
 
 ![Hosts File](/img/MonitorsFour/HostsFile2.png)
 
-# Initial Access: Exploiting PHP Type Juggling
+## Initial Access: Exploiting PHP Type Juggling
 
-## Discovering Sensitive Configuration Files
+### Discovering Sensitive Configuration Files
 
 Let's check if common configuration files are exposed:
 
@@ -149,7 +149,7 @@ A `.env` file stores environment variables. Applications need configuration sett
  - Third-party service credentials
  - Debug settings
 
-## Investigating the /user API Endpoint
+### Investigating the /user API Endpoint
 
 Earlier we saw the `/user` endpoint from our `gobuster` results. Let's look at it.
 
@@ -177,7 +177,7 @@ The application performs two-stage validation:
 
 This behavior hints at the backend validation logic, which will be crucial for our attack. The fact that we get different error messages for "missing" vs "invalid" tokens actually helps attackers by revealing information about the validation process.
 
-### Testing with curl
+#### Testing with curl
 
 Let's switch over to using `curl`:
 
@@ -202,7 +202,7 @@ curl is a command-line tool for making HTTP requests. It's preferred for securit
  - **Reproducibility**: Commands can be shared and replicated exactly
 
 
-## Understanding PHP Type Juggling
+### Understanding PHP Type Juggling
 
 After some research on Google, I found [PHP Type Juggling](https://www.php.net/manual/en/language.types.type-juggling.php):
 
@@ -237,6 +237,10 @@ If `$stored_token` is a string like "abc123", but we send the integer `0`, PHP c
 
 A special case of type juggling involves "**magic hashes**", which is hash values that look like scientific notation.
 
+**What is a scientific notation?:**
+
+A scientific notation is a method for expressing very large or very small numbers. It's particularly used in science, engineering and mathematics. For example, the number `4,800,000,000,000`, can be written as `4.8 * 10^12`.
+
 **How magic hashes work:**
 
 Some MD5 or SHA-1 hashes happen to start with "0e" followed by only digits, like:
@@ -269,7 +273,7 @@ Success! The payload `0` returns a response. This confirms the PHP backend is vu
 
 **What just happened?:**
 
-The backend code likely looks something like:
+We guessed correctly and the backend code likely looks something like:
 
 ```php
 if ($valid_token == $_GET['token']) {
@@ -285,7 +289,7 @@ The value `0` works because PHP converts both values to numbers during a loose c
 
 As a result, the stored token is implicitly converted to `0`, causing the comparison to succeed and bypass the authentication check.
 
-### Harvesting Employee Credentials
+#### Harvesting Employee Credentials
 
 The response is a JSON formatted employee database. Let's download it into a file:
 
@@ -308,7 +312,7 @@ In the response, we have 4 different employees with different jobs:
 
 The most interesting account to get access to would be `admin`, since it has the role **Super User**. The JSON also contains MD5 password hashes. We'll need to crack these to gain access.
 
-## Cracking The Password With Hashcat
+### Cracking The Password With Hashcat
 
 Let's use hashcat to crack the password of `admin`. First copy the password hash into a file and then use `hashcat`:
 
@@ -366,7 +370,7 @@ Username enumeration is often necessary even when you have valid passwords. Comm
  - Firstname.Lastname
  - First initial + Last name)
 
-## Exploiting Cacti for Remote Code Execution
+### Exploiting Cacti for Remote Code Execution
 
 We know the version of **Cacti** being used is `1.2.28`. Let's Google for any known vulnerabilities for this version:
 
@@ -449,7 +453,7 @@ python exploit.py
 
 Nice! We now have a reverse shell as the user `www-data`. We can also obtain the user flag at `/home/marcus/user.txt`. We've now completed the **user** portion of this box.
 
-# Privilege Escalation
+## Privilege Escalation
 
 We're currently `www-data`, which still has limited permissions. The goal is to escalate to root (administrator) access to gain complete control of the system and read the root flag.
 
@@ -462,7 +466,7 @@ Privilege escalation is exploiting weaknesses to gain higher-level permissions t
  - Exploiting vulnerable software
  - Abusing system services
 
-## Linpeas
+### Linpeas
 
 Let's run **LinPEAS** to enumerate privilege escalation vectors. First, start a Python HTTP server on our attacking machine:
 
@@ -513,7 +517,7 @@ Being inside a container means:
 3. We need to escape the container to access the Windows host
 4. Docker containers share the same kernel as the host, creating potential security issues
 
-## Understanding the Network Architecture
+### Understanding the Network Architecture
 
 
 Let's examine the network configuration to understand the **Docker environment**:
@@ -547,7 +551,7 @@ Think of this like an apartment building:
  - Apartments can talk to each other via the internal hallway (Docker network)
  - The building manager (Docker daemon) controls everything
 
-### Scanning the Docker Host with Fscan
+#### Scanning the Docker Host with Fscan
 
 Let's run [Fscan](https://github.com/shadow1ng/fscan).
 
@@ -595,13 +599,13 @@ The **Docker daemon API** is extremely powerful. If accessible without authentic
 
 Finding port `2375` open is like discovering that the building manager's master control panel (which can unlock any apartment, control utilities, and access security systems) has been left unlocked and unguarded. Even though you only have keys to one apartment (your container), you can now control the entire building.
 
-## Finding a CVE
+### Finding a CVE
 
 Let's try researching on Google for the result we got from **Fscan**. I found this on [Github](https://github.com/pucagit/CVE-2025-9074):
 
 ![Github Research](/img/MonitorsFour/GithubResearch.png)
 
-### Vulnerability Theory 
+#### Vulnerability Theory 
 
 In Docker Desktop for Windows (prior to specific patches), exposing the Docker daemon on TCP `2375` inside the **WSL2** network allows any container to control the Docker engine, if the daemon is unauthenticated.
 
