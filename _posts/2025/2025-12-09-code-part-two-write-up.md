@@ -90,7 +90,7 @@ Inside the `app` directory we see:
 
 Lets first look at the Python script:
 
-```Python
+```python
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 import hashlib
@@ -195,8 +195,6 @@ if __name__ == '__main__':
     with app.app_context():
         db.create_all()
     app.run(host='0.0.0.0', debug=True)
-
-
 ```
 
 **What is Flask?:**
@@ -385,7 +383,7 @@ Success! We now have an initial foothold in the host system running as the `app`
 
 The initial shell is somewhat limited, because it has no command history, no tab completion, and it can break if we accidentally press CTRL + C. Let's upgrade it to a proper PTY (pseudo-terminal):
 
-```
+```python
 python -c 'import pty; pty.spawn("/bin/bash")'
 ```
 
