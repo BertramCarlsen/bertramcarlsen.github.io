@@ -1,6 +1,6 @@
 ---
 title: Code Part Two Box Write Up (HackTheBox)
-date: 2025-12-09 12:00:00 + 0100
+date: 2026-01-12 12:00:00 + 0100
 tags: [HackTheBox, Educational, Linux, CVE, Sandbox Escape]
 categories: [Write Ups]
 ---

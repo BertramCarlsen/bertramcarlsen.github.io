@@ -1,6 +1,6 @@
 ---
 title: Soulmate Box Write Up (HackTheBox)
-date: 2025-12-05 12:00:00 + 0100
+date: 2025-12-25 12:00:00 + 0100
 tags: [HackTheBox, Educational, Linux, CVE]
 categories: [Write Ups]
 ---
